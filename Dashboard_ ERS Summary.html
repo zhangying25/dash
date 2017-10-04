@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<!-- saved from url=(0077)http://sherlock.vip.ebay.com/MySherlockApp/Dashboard/5908e63416dd9ebaa86bc702 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+  <title>Dashboard: ERS Summary</title>
+  <link rel="stylesheet" type="text/css" href="./Dashboard_ ERS Summary_files/mysherlock.3rdparty.min.css">
+
+  <link rel="stylesheet" type="text/css" href="./Dashboard_ ERS Summary_files/MySherlock.css">
+  <link rel="stylesheet" type="text/css" href="./Dashboard_ ERS Summary_files/MySherlockGlobal.css">
+  <link rel="stylesheet" id="themeCss1" type="text/css" href="./Dashboard_ ERS Summary_files/DashboardBuilder.css">
+  <link rel="stylesheet" id="themeCss2" type="text/css" href="./Dashboard_ ERS Summary_files/dashboard.css">
+  <link rel="stylesheet" type="text/css" href="./Dashboard_ ERS Summary_files/jqselect.css">
+  
+  <link href="./Dashboard_ ERS Summary_files/css" rel="stylesheet" type="text/css">
+<style>.right-inner-addon span {padding: 10px 12px; pointer-events: none; position: absolute;  right: 20px;}</style><style>hr.mysherlockHR {  border: 0;  height: 1px;  background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));   background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));   background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));   background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); }</style><script type="text/javascript">// over writing tenant and name to market places and ebay
+// to prevent the scenario where users haven't used Sherlock after ebay paypal split
+sherlock_tenant = "mp";
+sherlock_tenant_fullname = "eBay";
+
+var sherlockUserProfileObject = null;
+
+var getSherlockUserInfo = function() {
+   if (sherlockUserProfileObject != null) {
+     return {
+       user:sherlockUserProfileObject["subject"][0],
+       email:sherlockUserProfileObject["Email"][0],
+       org:sherlockUserProfileObject["Org"][0]
+     }
+   } else return null;
+}
+
+var _sherlockEnv_ = window.location.host.split(".")[0];
+if (_sherlockEnv_ == "sherlock" || _sherlockEnv_ == "sherlockpp" || _sherlockEnv_ == "sherlockqa") {
+  var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+  var isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
+  var pathArr = location.pathname.split("/");
+  var isPPNoc = false;
+  if (pathArr.length>1) {
+     var appName = pathArr[1];
+     if (appName == "PPLbApp" || appName == "PPApp" || appName == "PPNetworkApp" || appName == "ppreports" || appName == "MySherlockApp" || appName == "HistoricalAlertsApp") {
+        isPPNoc = true;
+     }
+  }
+  if ((isPPNoc == false) && (!isChrome && !isSafari)) {
+    var html = "" +
+     "<div style='position:absolute;top:0px;left:0px;right:0px;bottom:0px;background-color:#efefef;z-index:999999'>" +
+     "<div style='margin:0 auto;margin-top:12%;background-color:white;width:900px;padding:50px 50px 50px 50px'>" +
+     "<div style='display:table-row'><img src='/CoreApp/assets/img/notification_warning.png' style='display:table-cell'/>" +
+     "<div style='display:table-cell;padding-left:20px;vertical-align:top'/>" +
+       "<div style='color:black;font-size:24.5px;font-weight:bold'>Sherlock pages are not supported on this browser.</div>" +
+       "<p style='color:black;margin-bottom:20px;font-size:18px;font-weight:200'>Please try in browsers \"Chrome or Safari\"</p>" +
+     "</div></div></div>" +
+     "</div>";
+    document.open();
+    document.write(html);
+    document.close();
+    sherlockUserProfileObject = {"subject":["invalid"], "Email":["invalid"], "Org":[""]};
+    document.getElementsByTagName('head')[0].innerHTML = "<style>body{overflow:hidden}</style>";
+    throw("Please use supported browsers");
+  } else {
+     var html = "<footer id='certifiedBrowsers'>" +
+       "<br>" +
+       '<p align="right" style="z-index:9999999;" class="footer">Certified for Chrome / Safari</p>' +
+       '</footer>';
+     setTimeout(function() {
+       $("body").append(html);
+     }, 200);
+     setTimeout(function() {
+       $("#certifiedBrowsers").hide();
+     }, 5000);
+  }
+}
+
+window.SHERLOCKHEADERLIB_101010.getUrl = function (url) {
+    var scriptEl = document.createElement("script");
+    scriptEl.src = url;
+    scriptEl.async = true;
+    document.getElementsByTagName("head")[0].appendChild(scriptEl);
+};
+
+window.SHERLOCKHEADERLIB_101010.getUrlCB = function (url, cb) {
+    var scriptEl = document.createElement("script");
+    scriptEl.src = url;
+    scriptEl.async = true;
+    document.getElementsByTagName("head")[0].appendChild(scriptEl);
+    scriptEl.addEventListener('load', function (e) {
+       cb();
+    }, false);
+};
+
+var bsVersion = 2;
+
+window.SHERLOCKHEADERLIB_101010.hideHeader = function() {
+    if (bsVersion ==3)
+      $('#Sherlock_Main_Header.navbar').css({"visibility":"hidden"});
+
+    $('#Sherlock_Main_Header .navbar-inner').addClass('animatable');
+    $('#Sherlock_Main_Header .navbar-inner').slideUp('fast', function() {
+        //$('.container-fluid').addClass('Sherlock_Main_Header_hidden');
+      $('#Sherlock_Main_Header_expand_ui').slideDown('fast');
+      if (bsVersion ==3)
+         $('#Sherlock_Main_Header.navbar').css({"display":"none"});
+
+      if (window.location.pathname.indexOf('LbApp') > -1 && !window.location.search) {
+          document.getElementById('lb_connmon_header').classList.add('clearTopPadding');
+      } else {
+          $(window).resize();    	  
+      }
+
+    });
+
+};
+window.SHERLOCKHEADERLIB_101010.showHeader = function() {
+	if (window.location.pathname.indexOf('LbApp') > -1) {
+        document.getElementById('lb_connmon_header').classList.remove('clearTopPadding');
+    }
+    $('#Sherlock_Main_Header_expand_ui').slideUp('fast', function() {
+       if (bsVersion ==3) {
+        $('#Sherlock_Main_Header.navbar').css({"display":"block"});
+        $('#Sherlock_Main_Header.navbar').css({"visibility":"visible"});
+       }
+       $('#Sherlock_Main_Header .navbar-inner').slideDown('fast', function() {
+          $('#Sherlock_Main_Header .navbar-inner').removeClass('animatable');
+          //$('.container-fluid').removeClass('Sherlock_Main_Header_hidden');
+          if (window.location.pathname.indexOf('LbApp') > -1 && !window.location.search) {
+              document.getElementById('lb_connmon_header').classList.remove('clearTopPadding');
+          } else {
+              $(window).resize();    	  
+          }
+       });
+    });
+};
+
+window.SHERLOCKHEADERLIBHANDLEFUNC_101010 = function (responseData) {
+    var parentElement = document.getElementsByTagName('body')[0];
+    var theFirstChild = parentElement.firstChild;
+    var newElement = document.createElement('div');
+    newElement.innerHTML = responseData;
+    parentElement.insertBefore(newElement, theFirstChild);
+
+    if (window.location.pathname.indexOf('CassiniApp') > -1) {
+        document.getElementById('SHERLOCKHEADER__appmon').classList.add('active');
+    } else if (window.location.pathname.indexOf('CassiniGridApp') > -1) {
+        document.getElementById('SHERLOCKHEADER__appmon').classList.add('active');
+    } else if (window.location.pathname.indexOf('PerfMonApp') > -1) {
+        document.getElementById('SHERLOCKHEADER__appmon').classList.add('active');
+    } else if (window.location.pathname.indexOf('ThermApp') > -1) {
+        document.getElementById('SHERLOCKHEADER__appmon').classList.add('active');
+    } else if (window.location.pathname.indexOf('logviewui') > -1) {
+        document.getElementById('SHERLOCKHEADER__appmon').classList.add('active');
+    } else if (window.location.pathname.indexOf('regexui') > -1) {
+        document.getElementById('SHERLOCKHEADER__appmon').classList.add('active');
+    } else if (window.location.pathname.indexOf('appmon.vip.ebay.com/reports') > -1) {
+        document.getElementById('SHERLOCKHEADER__appmon').classList.add('active');
+    } else if (window.location.pathname.indexOf('LbApp') > -1) {
+        document.getElementById('SHERLOCKHEADER__sitemon').classList.add('active');
+    } else if (window.location.pathname.indexOf('db=mobile') > -1) {
+        document.getElementById('SHERLOCKHEADER__appmon').classList.add('active');
+    } else if (window.location.pathname.indexOf('dashboards/mobile') > -1) {
+        document.getElementById('SHERLOCKHEADER__sitemon').classList.add('active');
+    } else if (window.location.pathname.indexOf('hadoop') > -1) {
+        document.getElementById('SHERLOCKHEADER__inframon').classList.add('active');
+    } else if (window.location.pathname.indexOf('odb/db') > -1) {
+        document.getElementById('SHERLOCKHEADER__inframon').classList.add('active');
+    } else if (window.location.pathname.indexOf('sitealerts') > -1) {
+        document.getElementById('SHERLOCKHEADER__customapps').classList.add('active');
+    } else if (window.location.pathname.indexOf('mobilemon') > -1) {
+        document.getElementById('SHERLOCKHEADER__customapps').classList.add('active');
+    } else if (window.location.pathname.indexOf('dataserviceui') > -1) {
+        document.getElementById('SHERLOCKHEADER__customapps').classList.add('active');
+    } else if (window.location.pathname.indexOf('sojtagui') > -1) {
+        document.getElementById('SHERLOCKHEADER__customapps').classList.add('active');
+    } else if (window.location.pathname.indexOf('besmon') > -1) {
+        document.getElementById('SHERLOCKHEADER__customapps').classList.add('active');
+    }
+};
+
+window.SHERLOCKHEADERLIB_101010.urlStart = "//sherlock.vip.ebay.com";
+if (window.location.hostname.indexOf('sherlockpg') >= 0) {
+    window.SHERLOCKHEADERLIB_101010.urlStart = "//sherlockpg.vip.ebay.com";
+}
+if (window.location.hostname.indexOf('sherlockpp') >= 0) {
+  window.SHERLOCKHEADERLIB_101010.urlStart = "//sherlockpp.vip.ebay.com";
+}
+if (window.location.hostname.indexOf('sherlockdev') >= 0) {
+  window.SHERLOCKHEADERLIB_101010.urlStart = "//sherlockdev.vip.ebay.com";
+}
+
+if (window.SHERLOCKSERVERSCONSTANTS_101010 && window.SHERLOCKSERVERSCONSTANTS_101010.coreapp) {
+    window.SHERLOCKHEADERLIB_101010.headerUrl = window.SHERLOCKSERVERSCONSTANTS_101010.coreapp + "getData?url=" + encodeURIComponent(window.SHERLOCKSERVERSCONSTANTS_101010.coreapp.slice(7, window.SHERLOCKSERVERSCONSTANTS_101010.coreapp.length), "UTF-8");
+} else {
+    if (window.location.hostname.indexOf('sherlockpg') >= 0) {
+        window.SHERLOCKHEADERLIB_101010.headerUrl =  window.SHERLOCKHEADERLIB_101010.urlStart + "/CoreApp/getData?url=sherlockpg.vip.ebay.com%2FCoreApp%2F";
+    } else if (window.location.hostname.indexOf('sherlockpp') >= 0) {
+        window.SHERLOCKHEADERLIB_101010.headerUrl =  window.SHERLOCKHEADERLIB_101010.urlStart + "/CoreApp/getData?url=sherlockpp.vip.ebay.com%2FCoreApp%2F";
+    } else {
+        window.SHERLOCKHEADERLIB_101010.headerUrl =  window.SHERLOCKHEADERLIB_101010.urlStart + "/CoreApp/getData?url=sherlock.vip.ebay.com%2FCoreApp%2F";
+    }
+}
+if (window.location.hostname.indexOf('sherlockpg') >= 0) {
+    window.SHERLOCKHEADERLIB_101010.headerUrl = window.SHERLOCKHEADERLIB_101010.headerUrl + "sherlock_header%2Fsherlock_header_pg.html&callback=SHERLOCKHEADERLIBHANDLEFUNC_101010";
+} else if (window.location.hostname.indexOf('sherlockpp') >= 0) {
+    window.SHERLOCKHEADERLIB_101010.headerUrl = window.SHERLOCKHEADERLIB_101010.headerUrl + "sherlock_header%2Fsherlock_header_pp.html&callback=SHERLOCKHEADERLIBHANDLEFUNC_101010";
+} else {
+    window.SHERLOCKHEADERLIB_101010.headerUrl = window.SHERLOCKHEADERLIB_101010.headerUrl + "sherlock_header%2Fsherlock_header.html&callback=SHERLOCKHEADERLIBHANDLEFUNC_101010";
+}
+
+if (window.SHERLOCKSERVERSCONSTANTS_101010 && window.SHERLOCKSERVERSCONSTANTS_101010.coreapp) {
+    window.SHERLOCKHEADERLIB_101010.bootstrapUrl = window.SHERLOCKSERVERSCONSTANTS_101010.coreapp;
+} else {
+    window.SHERLOCKHEADERLIB_101010.bootstrapUrl = window.SHERLOCKHEADERLIB_101010.urlStart + "/CoreApp/";
+}
+window.SHERLOCKHEADERLIB_101010.bootstrapUrl = window.SHERLOCKHEADERLIB_101010.bootstrapUrl + "assets/js/bootstrap.min.js";
+
+if (window.SHERLOCKSERVERSCONSTANTS_101010 && window.SHERLOCKSERVERSCONSTANTS_101010.coreapp) {
+    window.SHERLOCKHEADERLIB_101010.icoUrl = window.SHERLOCKSERVERSCONSTANTS_101010.coreapp;
+} else {
+    window.SHERLOCKHEADERLIB_101010.icoUrl = window.SHERLOCKHEADERLIB_101010.urlStart + "/CoreApp/";
+}
+window.SHERLOCKHEADERLIB_101010.icoUrl =  window.SHERLOCKHEADERLIB_101010.icoUrl + "assets/favicon.ico";
+window.SHERLOCKHEADERLIB_101010.icoNode = document.createElement("link");
+window.SHERLOCKHEADERLIB_101010.icoNode.setAttribute('rel', 'shortcut icon');
+window.SHERLOCKHEADERLIB_101010.icoNode.setAttribute('href', window.SHERLOCKHEADERLIB_101010.icoUrl);
+document.getElementsByTagName("head")[0].appendChild(window.SHERLOCKHEADERLIB_101010.icoNode);
+
+
+function setCookie(cname,cvalue,exdays,path,domain)
+{
+  var d = new Date();
+  d.setTime(d.getTime()+(exdays*24*60*60*1000));
+  var expires = "expires="+d.toGMTString();
+  document.cookie = cname + "=" + cvalue + "; " + expires+";domain="+domain+";path="+path;
+}
+
+function getCookie(cname)
+{
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0; i<ca.length; i++)
+  {
+    var c = ca[i].trim();
+    if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+  }
+  return "";
+}
+
+var cSherlockProfile = getCookie("cSherlockProfile");
+
+function signin() {
+   window.location.href = window.SHERLOCKHEADERLIB_101010.urlStart.replace("http:", "https:")+'/CoreApp/signIn?url=' + window.location.href;
+}
+
+function delete_cookie( name, path, domain ) {
+  if(getCookie( name ) ) {
+    document.cookie = name + "=" +
+      ((path) ? ";path="+path:"")+
+      ((domain)?";domain="+domain:"") +
+      ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+  }
+}
+
+function signout() {
+   delete_cookie("sherlock", "/", ".ebay.com");
+   window.location.reload();
+}
+
+
+function showProfile() {
+  var bootstrap3_enabled = (typeof $().emulateTransitionEnd == 'function');
+  if(bootstrap3_enabled){
+    $("#userid").html("<span class='glyphicon glyphicon-user'></span> "+sherlockUserProfileObject["subject"][0]);
+  } else {
+    $("#userid").html("<i class='icon-user icon-white'></i> "+sherlockUserProfileObject["subject"][0]);
+  }
+  $("#signinout").attr("onclick", "signout()");
+  $("#signinout" ).html("Sign Out");
+}
+
+var jsonB64Sherlock = getCookie("sherlock");
+//cSherlockProfile = sherlock_tenant;
+if (jsonB64Sherlock!=undefined && jsonB64Sherlock!="") {
+  var json = atob(decodeURIComponent(unescape(jsonB64Sherlock)));
+  sherlockUserProfileObject = JSON.parse(json);
+}
+
+// no more PayPal support. set cookie to market place 
+setCookie("cSherlockProfile", "mp", 365,  "/", ".ebay.com");
+ 
+/*window.SHERLOCKHEADERLIB_101010.getUrlCB(window.SHERLOCKHEADERLIB_101010.headerUrl, function () { 
+  if (jsonB64Sherlock!=undefined && jsonB64Sherlock!="") {
+    showProfile();
+  } else {
+     /*if (window.location.protocol != "https:") {
+       $("#signin").css({'display':'none'});
+     } else {
+       $("#signin").css({'display':'block'});
+     }*
+     $("#signin").css({'display':'block'});
+     $("#signout").css({'display':'none'});
+  }
+});*/
+
+window.SHERLOCKHEADERLIB_101010.getUrlCB(window.SHERLOCKHEADERLIB_101010.urlStartComputed+"/CoreApp/assets/js/libs/require.js", function() {
+  require.config({
+    paths: {
+       jquery: window.SHERLOCKHEADERLIB_101010.urlStart+'/CoreApp/assets/js//libs/jquery'
+    }
+  });
+
+  if (typeof jQuery != 'undefined')
+  {
+    loadSherlockHeaderHTML($);
+  }
+  else {
+    require(['jquery'], function( $ ) {
+      loadSherlockHeaderHTML($);
+    });
+  }
+});
+
+var updateUrlForShEnvironment = function (url) {
+  var envSh = window.SHERLOCKHEADERLIB_101010.urlStartComputed.replace("http://", "").replace("https://","");
+  if (envSh != "sherlock.vip.ebay.com") {
+    url = url.replace("sherlock.vip.ebay.com", envSh);
+  } else if (window.location.host != "sherlock.vip.ebay.com") {
+    if (window.location.host.indexOf("stratus") > -1 || window.location.host.indexOf("sherlock")>-1) {
+      url = url.replace("sherlock.vip.ebay.com", window.location.host);
+    }
+  }
+  return url;
+}
+
+var navBarBootstrapV2 = function() {
+   this.navBar = null;
+   this.menu = null;
+   this.createNavBar = function($) {
+     this.navBar = $('<nav id="Sherlock_Main_Header" class="navbar">' +
+       '<div class="navbar-inner">' +
+       '<div class="container">'  +
+       '<ul class="nav" id="Sherlock_Menu_Bar"></ul>'+
+       '             <ul class="nav pull-right">'+
+       '                 <li>'+
+       '                     <a href="http://store.corp.ebay.com/" class="icon_moon"><i class="nav_tile"></i></a>'+
+       '                 </li>'+
+       '                 <li>'+
+       '                     <a href="https://wiki.vip.corp.ebay.com/display/MonitoringLoggingServices/Sherlock+Home" class="icon_moon"><i class="nav_help"></i></a>'+
+       '                 </li>'+
+       '                 <li>'+
+       '                     <a href="mailto:DL-eBay-Sherlock-Customer-Feedback@corp.ebay.com" class="icon_moon"><i class="nav_email"></i></a>'+
+       '                 </li>'+
+       '                 <li id="useridnl_1">'+
+       '                     <a id="useridnl" href="#" onclick="signin();return false">Sign In ('+sherlock_tenant_fullname+')</a>'+
+       '                 </li>'+
+       '                 <li id="useridnl_2">'+
+       '<div style="border-left:1px solid white;height:23px;margin-top:10px;width:10px;margin-left:-10px;">&nbsp;</div>'+
+       '                 </li>'+
+       '                 <li class="dropdown" id="signout" style="margin-left:-20px;">'+
+       '                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="userid"></span></span></a>'+
+       '                 </li>'+
+       '                 <li>'+
+       '                     <a href="javascript:void(0)" onclick="SHERLOCKHEADERLIB_101010.hideHeader()" class="icon_awesome"><i class="nav_collapse_header"></i></a>'+
+       '                 </li>'+
+       '             </ul>'+
+       '</div></div>'+
+       '     <div id="Sherlock_Main_Header_expand_ui" class="expand_ui" style="display:none;">'+
+       '        <ul class="nav pull-right">'+
+       '             <li>'+
+       '                 <a href="javascript:void(0)" onclick="SHERLOCKHEADERLIB_101010.showHeader()" class="icon_awesome"><i class="nav_expand_header"></i></a>'+
+       '             </li>'+
+       '         </ul>'+
+       '     </div>'+
+       '</nav>');
+   };
+
+   this.addBrand = function(brand) {
+      this.navBar.find('.container').prepend('<a id="SHERLOCKHEADER__sherlock_portal" class="brand" href="'+updateUrlForShEnvironment(brand.href)+'">' +
+                        '<i class="sherlock_logo_med"></i>' +
+                    '</a>').find(".sherlock_logo_med").css({background:"url('"+updateUrlForShEnvironment(brand.img.url)+"') 0 0 no-repeat transparent", 
+			"-webkit-background-size":"100%",
+			"-moz-background-size":"100%",
+			"background-size":"100%", width:"136px", height:"33px"});
+   }
+
+   this.getJQDom = function() {
+	return this.navBar;
+   }
+
+   this.show = function (_callback) {
+      var thisObj = this.navBar;
+      var styleSheet = $('<link type="text/css" href="'+window.SHERLOCKHEADERLIB_101010.urlStartComputed+'/CoreApp/assets/css/sherlock.css'+'" rel="stylesheet" />');
+      $.browser.safari = $.browser.webkit && !window.chrome;
+      if ($.browser.safari == undefined || $.browser.safari == false) {
+        styleSheet.load(function(){$("body").append(thisObj);_callback();});
+      }
+      $('head').append(styleSheet);
+      if ($.browser.safari == true) {
+        $("body").append(thisObj);_callback();
+      }
+   }
+
+   this.addMenuBarItem = function(mItem) {
+	var menuBarItem = $('<li id="SHERLOCKHEADER__'+mItem+'" class="dropdown">' +
+		   '<a href="#" class="dropdown-toggle" data-toggle="dropdown">' +
+		   mItem +
+		   '<b class="caret"></b>' +
+		   '</a>' +
+		   '<ul class="dropdown-menu" role="menu"></ul></li>');
+	this.navBar.find('#Sherlock_Menu_Bar').append(menuBarItem);
+	return menuBarItem;
+   }
+
+   this.addSubMenuItem = function(menuBarItemJDom, subMenuItem) {
+	if (subMenuItem == null) {
+           menuBarItemJDom.find(".dropdown-menu").append('<li class="divider"></li>');
+	}
+	else {
+           menuBarItemJDom.find(".dropdown-menu").append('<li id="SHERLOCKHEADER__'+subMenuItem.label+'"><a tabindex="-1" href="'+updateUrlForShEnvironment(subMenuItem.url)+'">'+subMenuItem.label+'</a></li>');
+        }
+   }
+};
+
+var navBarBootstrapV3 = function() {
+   this.navBar = null;
+   this.menu = null;
+   bsVersion = 3;
+   this.createNavBar = function($) {
+     this.navBar = $('<nav id="Sherlock_Main_Header" class="navbar navbar-default" role="navigation">' +
+       '<div class="container-fluid navbar-inner">' +
+       '<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">'+
+       '<ul class="nav navbar-nav" id="Sherlock_Menu_Bar"></ul>'+
+       '             <ul class="nav navbar-nav pull-right">'+
+       '                 <li>'+
+       '                     <a href="http://store.corp.ebay.com/" class="icon_moon"><i class="nav_tile"></i></a>'+
+       '                 </li>'+
+       '                 <li>'+
+       '                     <a href="https://wiki.vip.corp.ebay.com/display/MonitoringLoggingServices/Sherlock+Home" class="icon_moon"><i class="nav_help"></i></a>'+
+       '                 </li>'+
+       '                 <li>'+
+       '                     <a href="mailto:DL-eBay-Sherlock-Customer-Feedback@corp.ebay.com" class="icon_moon"><i class="nav_email"></i></a>'+
+       '                 </li>'+
+       '                 <li id="useridnl_1">'+
+       '                     <a id="useridnl" href="#" onclick="signin();return false">Sign In ('+sherlock_tenant_fullname+')</a>'+
+       '                 </li>'+
+       '                 <li id="useridnl_2">'+
+       '<div style="border-left:1px solid white;height:23px;margin-top:10px;width:10px;margin-left:-10px;">&nbsp;</div>'+
+       '                 </li>'+
+       '                 <li class="dropdown" id="signout">'+
+       '                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="userid"></span></a>'+
+       '                 </li>'+
+       '                 <li>'+
+       '                     <a href="javascript:void(0)" onclick="SHERLOCKHEADERLIB_101010.hideHeader()" class="icon_awesome"><i class="nav_collapse_header"></i></a>'+
+       '                 </li>'+
+       '             </ul>'+
+       '</div>'+
+       '</nav>'+
+       '     <div id="Sherlock_Main_Header_expand_ui" class="expand_ui" style="display:none;">'+
+       '        <ul class="nav pull-right">'+
+       '             <li>'+
+       '                 <a href="javascript:void(0)" onclick="SHERLOCKHEADERLIB_101010.showHeader()" class="icon_awesome"><div class="nav_expand_header"></div></a>'+
+       '             </li>'+
+       '         </ul>'+
+       '     </div>'
+       );
+   };
+
+   this.addBrand = function(brand) {
+      this.navBar.find('.container-fluid').prepend(
+                    '<div class="navbar-header">'+
+'<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">'+
+        '<span class="sr-only">Toggle navigation</span>'+
+        '<span class="icon-bar"></span>'+
+        '<span class="icon-bar"></span>'+
+        '<span class="icon-bar"></span>'+
+      '</button>'+
+                     '<a id="SHERLOCKHEADER__sherlock_portal" class="navbar-brand" href="'+updateUrlForShEnvironment(brand.href)+'">' +
+                        '<div class="sherlock_logo_med"></div>' +
+                    '</a></div>').find(".sherlock_logo_med").css({background:"url('"+updateUrlForShEnvironment(brand.img.url)+"') 0 0 no-repeat transparent", 
+			"-webkit-background-size":"100%",
+			"-moz-background-size":"100%",
+			"background-size":"100%", width:"136px", height:"33px"});
+   }
+
+   this.getJQDom = function() {
+	return this.navBar;
+   }
+
+   this.show = function (_callback) {
+      var thisObj = this.navBar;
+      var styleSheet = $('<link type="text/css" href="/CoreApp/assets/css/sherlockv3.css'+'" rel="stylesheet" />');
+      styleSheet.load(function(){$("body").prepend(thisObj);_callback();});
+      $('head').append(styleSheet);
+   }
+
+   this.addMenuBarItem = function(mItem) {
+	var menuBarItem = $('<li id="SHERLOCKHEADER__'+mItem+'" class="dropdown">' +
+		   '<a href="#" class="dropdown-toggle" data-toggle="dropdown">' +
+		   mItem +
+		   '<b class="caret"></b>' +
+		   '</a>' +
+		   '<ul class="dropdown-menu"></ul></li>');
+	this.navBar.find('#Sherlock_Menu_Bar').append(menuBarItem);
+	return menuBarItem;
+   }
+
+   this.addSubMenuItem = function(menuBarItemJDom, subMenuItem) {
+	if (subMenuItem == null) {
+		menuBarItemJDom.find(".dropdown-menu").append('<li class="divider"></li>');
+	}
+	else
+        menuBarItemJDom.find(".dropdown-menu").append('<li id="SHERLOCKHEADER__'+subMenuItem.label+'"><a tabindex="-1" href="'+updateUrlForShEnvironment(subMenuItem.url)+'">'+subMenuItem.label+'</a></li>');
+   }
+};
+
+function fireEvent(obj,evt){
+	var fireOnThis = obj;
+	if( document.createEvent ) {
+	  var evObj = document.createEvent('MouseEvents');
+	  evObj.initEvent( evt, true, false );
+	  fireOnThis.dispatchEvent(evObj);
+	} else if( document.createEventObject ) {
+	  fireOnThis.fireEvent('on'+evt);
+	}
+}
+
+function createSherlockHeader($, jsObj) {
+  var bootstrap3_enabled = (typeof $().emulateTransitionEnd == 'function');
+
+  var navBarBootstrap;
+
+  if(bootstrap3_enabled){
+ 	navBarBootstrap = new navBarBootstrapV3();
+  } else {
+ 	navBarBootstrap = new navBarBootstrapV2();
+  }
+
+  navBarBootstrap.createNavBar($);
+  navBarBootstrap.addBrand(jsObj.brand);
+  for(var tlMenu in jsObj.menu) {
+    var menuBarItem = navBarBootstrap.addMenuBarItem(jsObj.menu[tlMenu].label);
+    var subMenuItems = jsObj.menu[tlMenu].submenu;
+    for(var subMenuIdx in subMenuItems) {
+       var subMenuItem = subMenuItems[subMenuIdx];
+       navBarBootstrap.addSubMenuItem(menuBarItem, subMenuItem);
+    }
+  }
+  var jqDom = navBarBootstrap.getJQDom();
+  if (bootstrap3_enabled) {
+    jqDom.find("#"+cSherlockProfile+"SherlockProfile").attr("class", "glyphicon glyphicon-ok");
+  } else {
+    jqDom.find("#"+cSherlockProfile+"SherlockProfile").attr("class", "icon-ok icon-white");
+  }
+  
+
+  navBarBootstrap.show(function () {
+    if (jsonB64Sherlock!=undefined && jsonB64Sherlock!="") {
+      $("#useridnl_1").css({"display":"none"});
+      $("#useridnl_2").css({"display":"none"});
+      $("#userid").parent().css({"border":'none'});
+      showProfile();
+    } else {
+    }
+  });
+}
+
+function loadSherlockHeaderHTML($) {
+    if (window.location.pathname.indexOf('LbApp') > -1 && window.location.search.indexOf('sec=true') > -1) {
+        return;
+    }
+  $.ajax({
+    url : window.SHERLOCKHEADERLIB_101010.urlStartComputed+"/CoreApp/sherlock_header/"+cSherlockProfile+"_mbar.json?v4",
+    dataType : "json",
+    async: false,
+    success : function(jsObj) {
+       createSherlockHeader($, jsObj);
+    } 
+});
+
+}
+</script><link rel="shortcut icon" href="http://sherlock.vip.ebay.com/CoreApp/assets/favicon.ico"><script src="./Dashboard_ ERS Summary_files/require.js" async=""></script><script type="text/javascript" src="./Dashboard_ ERS Summary_files/html2canvas.js"></script><link type="text/css" href="./Dashboard_ ERS Summary_files/sherlockv3.css" rel="stylesheet"><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="ui/DashboardRenderer" src="./Dashboard_ ERS Summary_files/DashboardRenderer.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="ui/BootstrapPanel" src="./Dashboard_ ERS Summary_files/BootstrapPanel.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="ui/Gridster" src="./Dashboard_ ERS Summary_files/Gridster.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="ui/Graph" src="./Dashboard_ ERS Summary_files/Graph.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="tsdbcli/tsdbcli" src="./Dashboard_ ERS Summary_files/tsdbcli.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="ui/ajaxLoader" src="./Dashboard_ ERS Summary_files/ajaxLoader.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="tsdbcli/ajax" src="./Dashboard_ ERS Summary_files/ajax.js"></script><style type="text/css">#gridster_panel_0 [data-col="13"] { left:2529px; }
+#gridster_panel_0 [data-col="12"] { left:2318.666666666667px; }
+#gridster_panel_0 [data-col="11"] { left:2108.3333333333335px; }
+#gridster_panel_0 [data-col="10"] { left:1898px; }
+#gridster_panel_0 [data-col="9"] { left:1687.6666666666667px; }
+#gridster_panel_0 [data-col="8"] { left:1477.3333333333335px; }
+#gridster_panel_0 [data-col="7"] { left:1267px; }
+#gridster_panel_0 [data-col="6"] { left:1056.6666666666667px; }
+#gridster_panel_0 [data-col="5"] { left:846.3333333333334px; }
+#gridster_panel_0 [data-col="4"] { left:636px; }
+#gridster_panel_0 [data-col="3"] { left:425.6666666666667px; }
+#gridster_panel_0 [data-col="2"] { left:215.33333333333334px; }
+#gridster_panel_0 [data-col="1"] { left:5px; }
+#gridster_panel_0 [data-row="18"] { top:3580.666666666667px; }
+#gridster_panel_0 [data-row="17"] { top:3370.3333333333335px; }
+#gridster_panel_0 [data-row="16"] { top:3160px; }
+#gridster_panel_0 [data-row="15"] { top:2949.666666666667px; }
+#gridster_panel_0 [data-row="14"] { top:2739.3333333333335px; }
+#gridster_panel_0 [data-row="13"] { top:2529px; }
+#gridster_panel_0 [data-row="12"] { top:2318.666666666667px; }
+#gridster_panel_0 [data-row="11"] { top:2108.3333333333335px; }
+#gridster_panel_0 [data-row="10"] { top:1898px; }
+#gridster_panel_0 [data-row="9"] { top:1687.6666666666667px; }
+#gridster_panel_0 [data-row="8"] { top:1477.3333333333335px; }
+#gridster_panel_0 [data-row="7"] { top:1267px; }
+#gridster_panel_0 [data-row="6"] { top:1056.6666666666667px; }
+#gridster_panel_0 [data-row="5"] { top:846.3333333333334px; }
+#gridster_panel_0 [data-row="4"] { top:636px; }
+#gridster_panel_0 [data-row="3"] { top:425.6666666666667px; }
+#gridster_panel_0 [data-row="2"] { top:215.33333333333334px; }
+#gridster_panel_0 [data-row="1"] { top:5px; }
+#gridster_panel_0 [data-sizey="1"] { height:200.33333333333334px; }
+#gridster_panel_0 [data-sizey="2"] { height:410.6666666666667px; }
+#gridster_panel_0 [data-sizey="3"] { height:621px; }
+#gridster_panel_0 [data-sizey="4"] { height:831.3333333333334px; }
+#gridster_panel_0 [data-sizey="5"] { height:1041.6666666666667px; }
+#gridster_panel_0 [data-sizey="6"] { height:1252px; }
+#gridster_panel_0 [data-sizey="7"] { height:1462.3333333333335px; }
+#gridster_panel_0 [data-sizey="8"] { height:1672.6666666666667px; }
+#gridster_panel_0 [data-sizey="9"] { height:1883px; }
+#gridster_panel_0 [data-sizey="10"] { height:2093.3333333333335px; }
+#gridster_panel_0 [data-sizey="11"] { height:2303.666666666667px; }
+#gridster_panel_0 [data-sizey="12"] { height:2514px; }
+#gridster_panel_0 [data-sizey="13"] { height:2724.3333333333335px; }
+#gridster_panel_0 [data-sizey="14"] { height:2934.666666666667px; }
+#gridster_panel_0 [data-sizey="15"] { height:3145px; }
+#gridster_panel_0 [data-sizey="16"] { height:3355.3333333333335px; }
+#gridster_panel_0 [data-sizey="17"] { height:3565.666666666667px; }
+#gridster_panel_0 [data-sizex="1"] { width:200.33333333333334px; }
+#gridster_panel_0 [data-sizex="2"] { width:410.6666666666667px; }
+#gridster_panel_0 [data-sizex="3"] { width:621px; }
+#gridster_panel_0 [data-sizex="4"] { width:831.3333333333334px; }
+#gridster_panel_0 [data-sizex="5"] { width:1041.6666666666667px; }
+#gridster_panel_0 [data-sizex="6"] { width:1252px; }
+#gridster_panel_0 [data-sizex="7"] { width:1462.3333333333335px; }
+#gridster_panel_0 [data-sizex="8"] { width:1672.6666666666667px; }
+#gridster_panel_0 [data-sizex="9"] { width:1883px; }
+#gridster_panel_0 [data-sizex="10"] { width:2093.3333333333335px; }
+#gridster_panel_0 [data-sizex="11"] { width:2303.666666666667px; }
+#gridster_panel_0 [data-sizex="12"] { width:2514px; }
+</style><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="plugins/series" src="./Dashboard_ ERS Summary_files/series.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="tsdbcli/tsdbcli_custom" src="./Dashboard_ ERS Summary_files/tsdbcli_custom.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="tsdbcli/tsdbcliAJAX" src="./Dashboard_ ERS Summary_files/tsdbcliAJAX.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="ui/HighStockUI" src="./Dashboard_ ERS Summary_files/HighStockUI.js"></script></head>
+
+<body><nav id="Sherlock_Main_Header" class="navbar navbar-default" role="navigation"><div class="container-fluid navbar-inner"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a id="SHERLOCKHEADER__sherlock_portal" class="navbar-brand" href="https://sherlock.vip.ebay.com/MySherlockApp/landingPage"><div class="sherlock_logo_med" style="background: url(&quot;//sherlock.vip.ebay.com/CoreApp/assets/img/logo/sherlock_med_logo_text.png&quot;) 0px 0px / 100% no-repeat transparent; width: 136px; height: 33px;"></div></a></div><div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><ul class="nav navbar-nav" id="Sherlock_Menu_Bar"><li id="SHERLOCKHEADER__AppMon" class="dropdown"><a href="http://sherlock.vip.ebay.com/MySherlockApp/Dashboard/5908e63416dd9ebaa86bc702#" class="dropdown-toggle" data-toggle="dropdown">AppMon<b class="caret"></b></a><ul class="dropdown-menu"><li id="SHERLOCKHEADER__Log View"><a tabindex="-1" href="http://appmon.vip.ebay.com/logviewui/">Log View</a></li><li id="SHERLOCKHEADER__Regex Search"><a tabindex="-1" href="http://appmon.vip.ebay.com/regexui/">Regex Search</a></li><li class="divider"></li><li id="SHERLOCKHEADER__Pool Page"><a tabindex="-1" href="http://appmon.vip.ebay.com/reports">Pool Page</a></li><li id="SHERLOCKHEADER__PerfMon"><a tabindex="-1" href="https://sherlock.vip.ebay.com/PerfMonApp/perfmon">PerfMon</a></li><li id="SHERLOCKHEADER__Pool Thermometer"><a tabindex="-1" href="https://sherlock.vip.ebay.com/ThermApp/dashboard?defaultpool=true">Pool Thermometer</a></li><li id="SHERLOCKHEADER__Custom Thermometer"><a tabindex="-1" href="https://sherlock.vip.ebay.com/ThermApp/dashboard">Custom Thermometer</a></li><li class="divider"></li><li id="SHERLOCKHEADER__Cassini Monitoring"><a tabindex="-1" href="https://sherlock.vip.ebay.com/CassiniApp/cassiniNew">Cassini Monitoring</a></li><li id="SHERLOCKHEADER__Cassini Basic Reports"><a tabindex="-1" href="https://sherlock.vip.ebay.com/CassiniApp/reports">Cassini Basic Reports</a></li><li id="SHERLOCKHEADER__Cassini Grid Reports"><a tabindex="-1" href="https://sherlock.vip.ebay.com/CassiniApp/gridreports">Cassini Grid Reports</a></li><li id="SHERLOCKHEADER__Cassini Health Grid"><a tabindex="-1" href="https://sherlock.vip.ebay.com/CassiniGridApp/healthgrid">Cassini Health Grid</a></li><li id="SHERLOCKHEADER__SEC: Cassini Overview"><a tabindex="-1" href="https://sherlock.vip.ebay.com/ThermApp/cassinioverview">SEC: Cassini Overview</a></li><li class="divider"></li><li id="SHERLOCKHEADER__Sherlock Live Stats"><a tabindex="-1" href="https://sherlock.vip.ebay.com/PortalApp/portal">Sherlock Live Stats</a></li></ul></li><li id="SHERLOCKHEADER__SiteMon" class="dropdown"><a href="http://sherlock.vip.ebay.com/MySherlockApp/Dashboard/5908e63416dd9ebaa86bc702#" class="dropdown-toggle" data-toggle="dropdown">SiteMon<b class="caret"></b></a><ul class="dropdown-menu"><li id="SHERLOCKHEADER__Business Alerts"><a tabindex="-1" href="http://sherlock.vip.ebay.com/SherlockAlerts/alertsdashboard?profile=business&amp;sf30=true">Business Alerts</a></li><li id="SHERLOCKHEADER__LB Connections Alerts"><a tabindex="-1" href="https://sherlock.vip.ebay.com/LbApp/alerts">LB Connections Alerts</a></li><li id="SHERLOCKHEADER__LB Connections Current Alerts"><a tabindex="-1" href="https://sherlock.vip.ebay.com/LbApp/currentalerts">LB Connections Current Alerts</a></li><li id="SHERLOCKHEADER__DAL Alerts"><a tabindex="-1" href="http://sherlock.vip.ebay.com/SherlockAlerts/alertsdashboard?profile=dal">DAL Alerts</a></li><li class="divider"></li><li id="SHERLOCKHEADER__Pool TPS Alerts"><a tabindex="-1" href="https://sherlock.vip.ebay.com/LbApp/alerts?metric=TPS">Pool TPS Alerts</a></li><li id="SHERLOCKHEADER__Pool TPS Dip Alerts"><a tabindex="-1" href="https://sherlock.vip.ebay.com/LbApp/TPSDipAlerts">Pool TPS Dip Alerts</a></li><li id="SHERLOCKHEADER__Pool EPS Alerts"><a tabindex="-1" href="https://sherlock.vip.ebay.com/LbApp/alerts?metric=EPS">Pool EPS Alerts</a></li><li id="SHERLOCKHEADER__Pool FCI Alerts"><a tabindex="-1" href="https://sherlock.vip.ebay.com/LbApp/FCIAlerts">Pool FCI Alerts</a></li><li id="SHERLOCKHEADER__Pool Latency Alerts"><a tabindex="-1" href="https://sherlock.vip.ebay.com/LbApp/alerts?metric=Latency">Pool Latency Alerts</a></li><li id="SHERLOCKHEADER__Pool Error Alerts (BB)"><a tabindex="-1" href="https://sherlock.vip.ebay.com/LbApp/alerts?metric=BB6hErrorCount">Pool Error Alerts (BB)</a></li><li id="SHERLOCKHEADER__Pool 5XX Error Alerts"><a tabindex="-1" href="https://sherlock.vip.ebay.com/LbApp/5XXErrorAlerts">Pool 5XX Error Alerts</a></li><li id="SHERLOCKHEADER__Pool ESB Alerts"><a tabindex="-1" href="https://sherlock.vip.ebay.com/LbApp/ESBAlerts">Pool ESB Alerts</a></li><li id="SHERLOCKHEADER__Pool High CPU Alerts"><a tabindex="-1" href="https://sherlock.vip.ebay.com/LbApp/CPUAlerts">Pool High CPU Alerts</a></li><li id="SHERLOCKHEADER__GC Overhead Alerts"><a tabindex="-1" href="https://sherlock.vip.ebay.com/LbApp/GCOverheadAlerts">GC Overhead Alerts</a></li><li id="SHERLOCKHEADER__Used Thread Alerts"><a tabindex="-1" href="https://sherlock.vip.ebay.com/LbApp/UsedThreadsAlerts">Used Thread Alerts</a></li><li id="SHERLOCKHEADER__JVM Memory Available Alerts"><a tabindex="-1" href="https://sherlock.vip.ebay.com/LbApp/JVMMemAvailAlerts">JVM Memory Available Alerts</a></li><li class="divider"></li><li id="SHERLOCKHEADER__Network Alerts"><a tabindex="-1" href="https://sherlock.vip.ebay.com/NetworkApp/alerts">Network Alerts</a></li></ul></li><li id="SHERLOCKHEADER__InfraMon" class="dropdown"><a href="http://sherlock.vip.ebay.com/MySherlockApp/Dashboard/5908e63416dd9ebaa86bc702#" class="dropdown-toggle" data-toggle="dropdown">InfraMon<b class="caret"></b></a><ul class="dropdown-menu"><li id="SHERLOCKHEADER__Hadoop"><a tabindex="-1" href="https://sherlock.vip.ebay.com/CoreApp/page_iframe?source=https%3A%2F%2Fhadoop-eagle.corp.ebay.com%2F">Hadoop</a></li><li id="SHERLOCKHEADER__Database Insights"><a tabindex="-1" href="http://phxaisganglia002.phx.ebay.com/odb/db">Database Insights</a></li><li class="divider"></li><li id="SHERLOCKHEADER__BesMon"><a tabindex="-1" href="https://sherlock.vip.ebay.com/BesMonApp/besmon">BesMon</a></li><li class="divider"></li><li id="SHERLOCKHEADER__EsbMon"><a tabindex="-1" href="https://sherlock.vip.ebay.com/EsbMon/dashboard">EsbMon</a></li></ul></li><li id="SHERLOCKHEADER__Tools" class="dropdown"><a href="http://sherlock.vip.ebay.com/MySherlockApp/Dashboard/5908e63416dd9ebaa86bc702#" class="dropdown-toggle" data-toggle="dropdown">Tools<b class="caret"></b></a><ul class="dropdown-menu"><li id="SHERLOCKHEADER__TSDB"><a tabindex="-1" href="http://cmevpsqry.vip.stratus.slc.ebay.com:8080/">TSDB</a></li><li class="divider"></li><li id="SHERLOCKHEADER__Historical Alerts"><a tabindex="-1" href="https://sherlock.vip.ebay.com/HistoricalAlertsApp/alerts">Historical Alerts</a></li><li class="divider"></li><li id="SHERLOCKHEADER__Alerts Time Machine"><a tabindex="-1" href="http://sherlock.vip.ebay.com/SherlockAlerts/alertstimemachine?profile=business&amp;sf30=true">Alerts Time Machine</a></li><li class="divider"></li><li id="SHERLOCKHEADER__User Activity Search"><a tabindex="-1" href="http://appmon.vip.ebay.com/dataserviceui/">User Activity Search</a></li><li id="SHERLOCKHEADER__SOJ Tag Extraction"><a tabindex="-1" href="http://appmon.vip.ebay.com/sojtagui/">SOJ Tag Extraction</a></li><li class="divider"></li><li id="SHERLOCKHEADER__Parallel Efficiency"><a tabindex="-1" href="http://phxaisganglia002.phx.ebay.com/sitealerts/colo">Parallel Efficiency</a></li></ul></li><li id="SHERLOCKHEADER__My Sherlock" class="dropdown"><a href="http://sherlock.vip.ebay.com/MySherlockApp/Dashboard/5908e63416dd9ebaa86bc702#" class="dropdown-toggle" data-toggle="dropdown">My Sherlock<b class="caret"></b></a><ul class="dropdown-menu"><li id="SHERLOCKHEADER__User Groups"><a tabindex="-1" href="https://sherlock.vip.ebay.com/MySherlockApp/MyUserGroups">User Groups</a></li><li id="SHERLOCKHEADER__Capacity Reservations"><a tabindex="-1" href="https://sherlock.vip.ebay.com/MySherlockApp/MyCapacityReservations">Capacity Reservations</a></li><li id="SHERLOCKHEADER__Dashboards"><a tabindex="-1" href="https://sherlock.vip.ebay.com/MySherlockApp/MyDashboards">Dashboards</a></li><li id="SHERLOCKHEADER__Alerts"><a tabindex="-1" href="https://sherlock.vip.ebay.com/MySherlockApp/MyAlerts">Alerts</a></li></ul></li></ul>             <ul class="nav navbar-nav pull-right">                 <li>                     <a href="http://store.corp.ebay.com/" class="icon_moon"><i class="nav_tile"></i></a>                 </li>                 <li>                     <a href="https://wiki.vip.corp.ebay.com/display/MonitoringLoggingServices/Sherlock+Home" class="icon_moon"><i class="nav_help"></i></a>                 </li>                 <li>                     <a href="mailto:DL-eBay-Sherlock-Customer-Feedback@corp.ebay.com" class="icon_moon"><i class="nav_email"></i></a>                 </li>                 <li id="useridnl_1" style="display: none;">                     <a id="useridnl" href="http://sherlock.vip.ebay.com/MySherlockApp/Dashboard/5908e63416dd9ebaa86bc702#" onclick="signin();return false">Sign In (eBay)</a>                 </li>                 <li id="useridnl_2" style="display: none;"><div style="border-left:1px solid white;height:23px;margin-top:10px;width:10px;margin-left:-10px;">&nbsp;</div>                 </li>                 <li class="dropdown" id="signout">                    <a class="dropdown-toggle" data-toggle="dropdown" href="http://sherlock.vip.ebay.com/MySherlockApp/Dashboard/5908e63416dd9ebaa86bc702#" style="border: none;"><span id="userid"><span class="glyphicon glyphicon-user"></span> yingz</span></a>                 </li>                 <li>                     <a href="javascript:void(0)" onclick="SHERLOCKHEADERLIB_101010.hideHeader()" class="icon_awesome"><i class="nav_collapse_header"></i></a>                 </li>             </ul></div></div></nav>     <div id="Sherlock_Main_Header_expand_ui" class="expand_ui" style="display:none;">        <ul class="nav pull-right">             <li>                 <a href="javascript:void(0)" onclick="SHERLOCKHEADERLIB_101010.showHeader()" class="icon_awesome"><div class="nav_expand_header"></div></a>             </li>         </ul>     </div>
+  <div id="mainDashboard">
+    <div id="dashboardHeader" class="clearfix">
+      <div class="dashboardControls pull-right clearfix">
+        <div id="timeControl"><div style="display:inline-block"><div class="btn-group" data-toggle="buttons"><label class="btn btn-default btn-sm active"><input type="radio" class="relTime" value="0d1h0m">1h</label><label class="btn btn-default btn-sm"><input type="radio" class="relTime" value="0d3h0m">3h</label><label class="btn btn-default btn-sm"><input type="radio" class="relTime" value="0d8h0m">8h</label><label class="btn btn-default btn-sm"><input type="radio" class="relTime" value="1d0h0m">1d</label><label class="btn btn-default btn-sm"><input type="radio" class="relTime" value="3d0h0m">3d</label><label class="btn btn-default btn-sm"><input type="radio" class="relTime" value="7d0h0m">1w</label><label class="btn btn-default btn-sm"><input type="radio" class="relTime" value="relTime">Relative Time</label><label class="btn btn-default btn-sm"><input type="radio" class="relTime" value="absTime">Absolute Time</label></div>&nbsp;&nbsp;<div class="btn-group"><button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" id="refreshOption"><span class="display">Manual Refresh</span> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu"><li class="refresh"><a href="http://sherlock.vip.ebay.com/MySherlockApp/Dashboard/5908e63416dd9ebaa86bc702#" class="ref30s">Refresh every 30 seconds</a></li><li class="refresh"><a href="http://sherlock.vip.ebay.com/MySherlockApp/Dashboard/5908e63416dd9ebaa86bc702#" class="ref1">Refresh every 1 minute</a></li><li class="refresh"><a href="http://sherlock.vip.ebay.com/MySherlockApp/Dashboard/5908e63416dd9ebaa86bc702#" class="ref2">Refresh every 2 minutes</a></li><li class="refresh"><a href="http://sherlock.vip.ebay.com/MySherlockApp/Dashboard/5908e63416dd9ebaa86bc702#" class="ref5">Refresh every 5 minutes</a></li><li class="refresh"><a href="http://sherlock.vip.ebay.com/MySherlockApp/Dashboard/5908e63416dd9ebaa86bc702#" class="ref10">Refresh every 10 minutes</a></li><li class="divider"></li><li class="refresh"><a href="http://sherlock.vip.ebay.com/MySherlockApp/Dashboard/5908e63416dd9ebaa86bc702#" class="noRef">Manual Refresh</a></li></ul></div>&nbsp;&nbsp;<div class="btn-group"><button type="button" class="btn btn-default btn-sm" id="datasource">Switch to Secondary</button></div>&nbsp;&nbsp;<div class="btn-group"><button type="button" class="btn btn-default btn-sm" id="theme">Switch to Dark Theme</button></div><div class="row relTimeCtrl" style="margin-top:10px;display:none;width:700px"><div class="col-lg-3"><div class="input-group input-group-sm"><input type="text" class="form-control relTimeDays" placeholder="days" value="0"><span class="input-group-btn"><button class="btn btn-default btn-sm" type="button">Days ago</button></span></div></div><div class="col-lg-3"><div class="input-group input-group-sm"><input type="text" class="form-control relTimeHours" placeholder="days" value="0"><span class="input-group-btn"><button class="btn btn-default btn-sm" type="button">Hours ago</button></span></div></div><div class="col-lg-3"><div class="input-group input-group-sm"><input type="text" class="form-control relTimeMins" placeholder="days" value="0"><span class="input-group-btn"><button class="btn btn-default btn-sm" type="button">Min ago</button></span></div></div><button class="btn btn-primary btn-sm refreshGraph">Submit</button></div><div class="row absTimeCtrl" style="margin-top:10px;margin-left:5px;display:none;font-weight:normal;font-size:13px"><div class="display:table-row">    <label style="display:table-cell;width:50px;vertical-align:middle">Start</label>    <div style="display:table-cell;width:220px;">       <div style="width:220px;display:inline-block" class="right-inner-addon"><span class="glyphicon glyphicon-calendar"></span>           <input type="button" id="form_datetime_stDT" style="width:205px;height:30px;display:inline-block" class="form-control form_datetime stDT" size="16" value="10-04-2017 15:07:20" data-id="stDT">      </div>    </div>    <label style="display:table-cell;width:40px;vertical-align:middle">End</label>    <div style="display:table-cell;width:220px;">       <div style="width:220px;display:inline-block" class="right-inner-addon"><span class="glyphicon glyphicon-calendar"></span>           <input id="form_datetime_endDT" style="width:205px;height:30px;display:inline-block" class="form-control form_datetime endDT" size="16" type="button" value="10-04-2017 16:07:20" data-id="endDT">       </div>    </div><div style="display:table-cell;width:100px;vertical-align:middle"><button class="btn btn-primary btn-sm refreshGraph">Submit</button></div></div></div></div></div>
+        <div class="actions pull-right">
+          <a class="btn btn-default btn-sm" id="btn-copyurl" title="Copy URL to Clipboard">
+            <span class="glyphicon glyphicon-link"></span>
+          </a>
+          <a class="btn btn-default btn-sm" id="btn-fullscreen" title="View in Full Screen">
+            <span class="glyphicon glyphicon-resize-full"></span>
+          </a>
+          <a class="btn btn-default btn-sm" id="btn-edit" title="Edit Dashboard" style="">
+            <span class="glyphicon glyphicon-pencil"></span>
+          </a>
+          <a class="btn btn-default btn-sm" href="http://sherlock.vip.ebay.com/MySherlockApp/MyDashboards" title="Back to My Dashboards">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+          </a>
+        <div class="zclip" title="Copy URL to Clipboard" id="zclip-ZeroClipboardMovie_1" style="position: absolute; left: 2392px; top: 61px; width: 34px; height: 30px; z-index: 99;"><embed id="ZeroClipboardMovie_1" src="/MySherlockApp/assets/js/libs/3rdparty/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="34" height="30" name="ZeroClipboardMovie_1" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=34&amp;height=30" wmode="transparent"></div></div>
+      </div>
+      <div class="title"><span class="glyphicon glyphicon-dashboard"></span> ERS Summary</div>
+    </div>
+  <div class="panel panel-default mainPanel" style="height:100%;border:none"><div class="leftSideTogglesOptions btn-group pull-left" style="margin-left:5px;margin-top:5px"><div class="btn-group" data-toggle="buttons"><label class="wow1 btn btn-default active" style="display:none"><input type="checkbox" autocomplete="off" checked="" value="1w"> 1w Ago</label><label class="dod1 btn btn-default active" style="display:none"><input type="checkbox" autocomplete="off" checked="" value="1d"> 1d Ago</label></div></div><header class="panel-heading" style="padding: 2px 2px;"><span class="panel-title" style="padding:0px;height:30px;display:inline-block;"><span id="title_gridster_panel_0_container" style="padding:7px;line-height:30px;">Default Group</span><input id="title_entry_gridster_panel_0_container" style="display:none;padding:7px;width:200px;"></span><div class="btn-group pull-right" style="margin-right:5px;"></div><div class="clearfix"></div></header><div id="gridster_panel_0_container" class="panel-body " style="height:calc(100% - 40px);width:100%;padding:0;position:relative"><div class="gridster ready" id="gridster_panel_0" style="padding:10px;width:100%;height:100%;"><ul ondragover="allowDrop(event)" style="height: 420.667px; width: 2524px; position: relative;" class="gs-resize-disabled"><li data-idx="0" data-col="1" data-row="1" data-sizex="12" data-sizey="2" class="gs-w" style="display: list-item;"><span class="gs-resize-handle gs-resize-handle-both"></span><div class="panel panel-default mainPanel" style="height:100%;border:none"><div class="leftSideTogglesOptions btn-group pull-left" style="margin-left:5px;margin-top:5px"><div class="btn-group" data-toggle="buttons"><label class="wow1 btn btn-default active" style="display:none"><input type="checkbox" autocomplete="off" checked="" value="1w"> 1w Ago</label><label class="dod1 btn btn-default active" style="display:none"><input type="checkbox" autocomplete="off" checked="" value="1d"> 1d Ago</label></div></div><header class="panel-heading" style="padding: 2px 2px;"><span class="panel-title" style="padding:0px;height:30px;display:inline-block;"><span id="title_sh_139592" style="padding:7px;line-height:30px;">NRT Release</span><input id="title_entry_sh_139592" style="display:none;padding:7px;width:200px;"></span><div class="btn-group pull-right" style="margin-right:5px;"></div><div class="clearfix"></div></header><div id="sh_139592" class="panel-body " style="height:calc(100% - 40px);width:100%;padding:0;position:relative" data-highcharts-chart="0"><div class="highcharts-container" id="highcharts-0" style="position: relative; overflow: hidden; width: 2514px; height: 371px; text-align: left; line-height: normal; z-index: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); touch-action: none;"><svg version="1.1" style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif;font-size:12px;" xmlns="http://www.w3.org/2000/svg" width="2514" height="371"><desc>Created with Highstock 2.0.1</desc><defs><clippath id="highcharts-1"><rect x="0" y="0" width="2414" height="333"></rect></clippath><clippath id="highcharts-2"><rect x="0" y="0" width="2414" height="333"></rect></clippath></defs><rect x="0" y="0" width="2514" height="353" strokeWidth="0" fill="#ffffff" class=" highcharts-background"></rect><path fill="rgba(0,179,0,0.25)" d="M 0 0"></path><g class="highcharts-grid" zIndex="1"><path fill="none" d="M 196.5 0 L 196.5 333 M 196.5 0 L 196.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 276.5 0 L 276.5 333 M 276.5 0 L 276.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 357.5 0 L 357.5 333 M 357.5 0 L 357.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 437.5 0 L 437.5 333 M 437.5 0 L 437.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 518.5 0 L 518.5 333 M 518.5 0 L 518.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 598.5 0 L 598.5 333 M 598.5 0 L 598.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 679.5 0 L 679.5 333 M 679.5 0 L 679.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 759.5 0 L 759.5 333 M 759.5 0 L 759.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 840.5 0 L 840.5 333 M 840.5 0 L 840.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 920.5 0 L 920.5 333 M 920.5 0 L 920.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 1001.5 0 L 1001.5 333 M 1001.5 0 L 1001.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 1081.5 0 L 1081.5 333 M 1081.5 0 L 1081.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 1161.5 0 L 1161.5 333 M 1161.5 0 L 1161.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 1242.5 0 L 1242.5 333 M 1242.5 0 L 1242.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 1322.5 0 L 1322.5 333 M 1322.5 0 L 1322.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 1403.5 0 L 1403.5 333 M 1403.5 0 L 1403.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 1483.5 0 L 1483.5 333 M 1483.5 0 L 1483.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 1564.5 0 L 1564.5 333 M 1564.5 0 L 1564.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 1644.5 0 L 1644.5 333 M 1644.5 0 L 1644.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 1725.5 0 L 1725.5 333 M 1725.5 0 L 1725.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 1805.5 0 L 1805.5 333 M 1805.5 0 L 1805.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 1886.5 0 L 1886.5 333 M 1886.5 0 L 1886.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 1966.5 0 L 1966.5 333 M 1966.5 0 L 1966.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 2047.5 0 L 2047.5 333 M 2047.5 0 L 2047.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 2127.5 0 L 2127.5 333 M 2127.5 0 L 2127.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 2208.5 0 L 2208.5 333 M 2208.5 0 L 2208.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 2288.5 0 L 2288.5 333 M 2288.5 0 L 2288.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 2368.5 0 L 2368.5 333 M 2368.5 0 L 2368.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 2449.5 0 L 2449.5 333 M 2449.5 0 L 2449.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 115.5 0 L 115.5 333 M 115.5 0 L 115.5 333" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path></g><g class="highcharts-grid" zIndex="1"><path fill="none" d="M 50 -0.5 L 2464 -0.5" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 50 42.5 L 2464 42.5" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 50 83.5 L 2464 83.5" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 50 125.5 L 2464 125.5" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 50 167.5 L 2464 167.5" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 50 208.5 L 2464 208.5" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 50 250.5 L 2464 250.5" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 50 291.5 L 2464 291.5" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 50 333.5 L 2464 333.5" stroke="#eeeeee" stroke-width="1" zIndex="1" opacity="1"></path></g><g class="highcharts-grid" zIndex="1"></g><g class="highcharts-axis" zIndex="2"><path fill="none" d="M 196.5 333 L 196.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 276.5 333 L 276.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 357.5 333 L 357.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 437.5 333 L 437.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 518.5 333 L 518.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 598.5 333 L 598.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 679.5 333 L 679.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 759.5 333 L 759.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 840.5 333 L 840.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 920.5 333 L 920.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 1001.5 333 L 1001.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 1081.5 333 L 1081.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 1161.5 333 L 1161.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 1242.5 333 L 1242.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 1322.5 333 L 1322.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 1403.5 333 L 1403.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 1483.5 333 L 1483.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 1564.5 333 L 1564.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 1644.5 333 L 1644.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 1725.5 333 L 1725.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 1805.5 333 L 1805.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 1886.5 333 L 1886.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 1966.5 333 L 1966.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 2047.5 333 L 2047.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 2127.5 333 L 2127.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 2208.5 333 L 2208.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 2288.5 333 L 2288.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 2368.5 333 L 2368.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 2449.5 333 L 2449.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 115.5 333 L 115.5 343" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 50 333.5 L 2464 333.5" stroke="#C0D0E0" stroke-width="1" zIndex="7" visibility="visible"></path></g><g class="highcharts-axis" zIndex="2"><text x="10" zIndex="7" text-anchor="middle" transform="translate(0,0) rotate(270 10 166.5)" class=" highcharts-yaxis-title" style="color:#2a2a2a;fill:#2a2a2a;" visibility="visible" y="166.5"><tspan># Request    </tspan></text></g><g class="highcharts-axis" zIndex="2"><text x="2474" zIndex="7" text-anchor="middle" transform="translate(0,0) rotate(90 2474 166.5)" class=" highcharts-yaxis-title" style="color:#2a2a2a;fill:#2a2a2a;" visibility="visible" y="166.5"><tspan>Latency    </tspan></text></g><path fill="none" d="M 613.5 0 L 613.5 333 M 613.5 0 L 613.5 333" stroke-width="1" stroke="#C0C0C0" zIndex="2" visibility="hidden"></path><g class="highcharts-series-group" zIndex="3"><g class="highcharts-series" visibility="visible" zIndex="0.1" transform="translate(50,0) scale(1 1)" clip-path="url(#highcharts-2)"><path fill="none" d="M 29.504444444444445 256.68749916006345 L 69.73777777777778 225.1534092494985 L 109.97111111111111 269.3011356088682 L 150.20444444444445 256.68749916006345 L 190.43777777777777 256.68749916006345 L 230.67111111111112 259.84143343451433 L 270.90444444444444 234.6115341199329 L 311.1377777777778 231.46023110824171 L 351.3711111111111 240.92045420478098 L 391.6044444444444 256.68750158295734 L 431.8377777777778 256.68749916006345 L 472.0711111111111 266.1477271023905 L 512.3044444444445 253.53409065358574 L 552.5377777777777 244.0738602883648 L 592.771111111111 266.1477271023905 L 633.0044444444444 262.9943161730189 L 673.2377777777778 253.53409065358574 L 713.4711111111111 250.38068214710802 L 753.7044444444444 262.9943161730189 L 793.9377777777778 250.38068214710802 L 834.171111111111 262.9943161730189 L 874.4044444444444 266.1477271023905 L 914.6377777777777 256.68749916006345 L 954.8711111111111 253.53409307647962 L 995.1044444444444 269.3011356088682 L 1035.3377777777778 253.53409065358574 L 1075.5711111111111 259.84090766654117 L 1115.8044444444445 272.4545441153459 L 1156.0377777777778 269.3011356088682 L 1196.2711111111112 259.84090766654117 L 1236.5044444444443 253.53409065358574 L 1276.7377777777776 262.9943161730189 L 1316.971111111111 253.53409065358574 L 1357.2044444444443 256.7032528161071 L 1397.4377777777777 259.82775862142444 L 1437.671111111111 259.84090766654117 L 1477.9044444444444 250.38068214710802 L 1518.1377777777777 259.84091008943506 L 1558.371111111111 253.53409065358574 L 1598.6044444444444 259.84091008943506 L 1638.8377777777778 262.9943185959128 L 1679.0711111111111 259.84091008943506 L 1719.3044444444445 244.0738602883648 L 1759.5377777777778 266.1477271023905 L 1799.771111111111 259.84090766654117 L 1840.0044444444443 266.1477271023905 L 1880.2377777777776 262.99432101880666 L 1920.471111111111 259.84090766654117 L 1960.7044444444443 262.9943185959128 L 2000.9377777777777 256.68749916006345 L 2041.171111111111 228.3057686429238 L 2081.4044444444444 250.38067730132025 L 2121.6377777777775 259.84090766654117 L 2161.871111111111 262.9943161730189 L 2202.104444444444 240.92045420478098 L 2242.337777777778 253.53408823069185 L 2282.571111111111 250.38068214710802 L 2322.8044444444445 240.92045420478098 L 2363.0377777777776 240.92045420478098 L 2403.271111111111 256.68749916006345" stroke="#f00c5c" stroke-width="2" zIndex="1" stroke-linejoin="round" stroke-linecap="round"></path><path fill="none" d="M 19.504444444444445 256.68749916006345 L 29.504444444444445 256.68749916006345 L 69.73777777777778 225.1534092494985 L 109.97111111111111 269.3011356088682 L 150.20444444444445 256.68749916006345 L 190.43777777777777 256.68749916006345 L 230.67111111111112 259.84143343451433 L 270.90444444444444 234.6115341199329 L 311.1377777777778 231.46023110824171 L 351.3711111111111 240.92045420478098 L 391.6044444444444 256.68750158295734 L 431.8377777777778 256.68749916006345 L 472.0711111111111 266.1477271023905 L 512.3044444444445 253.53409065358574 L 552.5377777777777 244.0738602883648 L 592.771111111111 266.1477271023905 L 633.0044444444444 262.9943161730189 L 673.2377777777778 253.53409065358574 L 713.4711111111111 250.38068214710802 L 753.7044444444444 262.9943161730189 L 793.9377777777778 250.38068214710802 L 834.171111111111 262.9943161730189 L 874.4044444444444 266.1477271023905 L 914.6377777777777 256.68749916006345 L 954.8711111111111 253.53409307647962 L 995.1044444444444 269.3011356088682 L 1035.3377777777778 253.53409065358574 L 1075.5711111111111 259.84090766654117 L 1115.8044444444445 272.4545441153459 L 1156.0377777777778 269.3011356088682 L 1196.2711111111112 259.84090766654117 L 1236.5044444444443 253.53409065358574 L 1276.7377777777776 262.9943161730189 L 1316.971111111111 253.53409065358574 L 1357.2044444444443 256.7032528161071 L 1397.4377777777777 259.82775862142444 L 1437.671111111111 259.84090766654117 L 1477.9044444444444 250.38068214710802 L 1518.1377777777777 259.84091008943506 L 1558.371111111111 253.53409065358574 L 1598.6044444444444 259.84091008943506 L 1638.8377777777778 262.9943185959128 L 1679.0711111111111 259.84091008943506 L 1719.3044444444445 244.0738602883648 L 1759.5377777777778 266.1477271023905 L 1799.771111111111 259.84090766654117 L 1840.0044444444443 266.1477271023905 L 1880.2377777777776 262.99432101880666 L 1920.471111111111 259.84090766654117 L 1960.7044444444443 262.9943185959128 L 2000.9377777777777 256.68749916006345 L 2041.171111111111 228.3057686429238 L 2081.4044444444444 250.38067730132025 L 2121.6377777777775 259.84090766654117 L 2161.871111111111 262.9943161730189 L 2202.104444444444 240.92045420478098 L 2242.337777777778 253.53408823069185 L 2282.571111111111 250.38068214710802 L 2322.8044444444445 240.92045420478098 L 2363.0377777777776 240.92045420478098 L 2403.271111111111 256.68749916006345 L 2413.271111111111 256.68749916006345" stroke-linejoin="round" visibility="visible" stroke="rgba(192,192,192,0.0001)" stroke-width="22" zIndex="2" class=" highcharts-tracker" style=""></path></g><g class="highcharts-markers highcharts-tracker" visibility="visible" zIndex="0.1" transform="translate(50,0) scale(1 1)" clip-path="none" style=""></g><g class="highcharts-series" visibility="visible" zIndex="0.1" transform="translate(50,0) scale(1 1)" clip-path="url(#highcharts-2)"><path fill="none" d="M 0.6705555555555556 291.375 L 40.903888888888886 291.375 L 81.13722222222222 291.375 L 121.37055555555555 236.7644207108533 L 161.6038888888889 291.375 L 201.8372222222222 202.0190030154772 L 242.07055555555556 38.199684902094305 L 282.3038888888889 241.73278268356808 L 322.5372222222222 291.375 L 362.7705555555555 291.375 L 403.00388888888887 291.375 L 443.2372222222222 291.375 L 483.47055555555556 291.375 L 523.7038888888889 291.375 L 563.9372222222222 244.21489209565334 L 604.1705555555556 291.375 L 644.4038888888889 291.375 L 684.6372222222222 246.6970015077386 L 724.8705555555555 291.375 L 765.1038888888888 251.6612251776969 L 805.3372222222222 291.375 L 845.5705555555555 291.375 L 885.8038888888889 245.20599622267764 L 926.0372222222222 291.375 L 966.2705555555556 244.21489209565334 L 1006.5038888888888 291.375 L 1046.7372222222223 291.375 L 1086.9705555555556 291.375 L 1127.2038888888887 291.375 L 1167.437222222222 291.375 L 1207.6705555555554 244.21489209565334 L 1247.9038888888888 291.375 L 1288.1372222222221 291.375 L 1328.3705555555555 291.375 L 1368.6038888888888 249.17414883314632 L 1408.8372222222222 291.375 L 1449.0705555555555 291.375 L 1489.3038888888889 249.17911091982387 L 1529.5372222222222 291.375 L 1569.7705555555556 249.18035628728103 L 1610.003888888889 239.2506732714828 L 1650.2372222222223 291.375 L 1690.4705555555554 291.375 L 1730.7038888888887 291.375 L 1770.937222222222 291.375 L 1811.1705555555554 291.375 L 1851.4038888888888 291.375 L 1891.6372222222221 291.375 L 1931.8705555555555 291.375 L 1972.1038888888888 254.14333458978217 L 2012.3372222222222 291.375 L 2052.5705555555555 291.375 L 2092.8038888888887 291.375 L 2133.037222222222 246.6970015077386 L 2173.2705555555553 291.375 L 2213.503888888889 291.375 L 2253.737222222222 291.375 L 2293.9705555555556 291.375 L 2334.2038888888887 251.6612251776969 L 2374.4372222222223 291.375" stroke="#00b300" stroke-width="2" zIndex="1" stroke-linejoin="round" stroke-linecap="round"></path><path fill="none" d="M -9.329444444444444 291.375 L 0.6705555555555556 291.375 L 40.903888888888886 291.375 L 81.13722222222222 291.375 L 121.37055555555555 236.7644207108533 L 161.6038888888889 291.375 L 201.8372222222222 202.0190030154772 L 242.07055555555556 38.199684902094305 L 282.3038888888889 241.73278268356808 L 322.5372222222222 291.375 L 362.7705555555555 291.375 L 403.00388888888887 291.375 L 443.2372222222222 291.375 L 483.47055555555556 291.375 L 523.7038888888889 291.375 L 563.9372222222222 244.21489209565334 L 604.1705555555556 291.375 L 644.4038888888889 291.375 L 684.6372222222222 246.6970015077386 L 724.8705555555555 291.375 L 765.1038888888888 251.6612251776969 L 805.3372222222222 291.375 L 845.5705555555555 291.375 L 885.8038888888889 245.20599622267764 L 926.0372222222222 291.375 L 966.2705555555556 244.21489209565334 L 1006.5038888888888 291.375 L 1046.7372222222223 291.375 L 1086.9705555555556 291.375 L 1127.2038888888887 291.375 L 1167.437222222222 291.375 L 1207.6705555555554 244.21489209565334 L 1247.9038888888888 291.375 L 1288.1372222222221 291.375 L 1328.3705555555555 291.375 L 1368.6038888888888 249.17414883314632 L 1408.8372222222222 291.375 L 1449.0705555555555 291.375 L 1489.3038888888889 249.17911091982387 L 1529.5372222222222 291.375 L 1569.7705555555556 249.18035628728103 L 1610.003888888889 239.2506732714828 L 1650.2372222222223 291.375 L 1690.4705555555554 291.375 L 1730.7038888888887 291.375 L 1770.937222222222 291.375 L 1811.1705555555554 291.375 L 1851.4038888888888 291.375 L 1891.6372222222221 291.375 L 1931.8705555555555 291.375 L 1972.1038888888888 254.14333458978217 L 2012.3372222222222 291.375 L 2052.5705555555555 291.375 L 2092.8038888888887 291.375 L 2133.037222222222 246.6970015077386 L 2173.2705555555553 291.375 L 2213.503888888889 291.375 L 2253.737222222222 291.375 L 2293.9705555555556 291.375 L 2334.2038888888887 251.6612251776969 L 2374.4372222222223 291.375 L 2384.4372222222223 291.375" stroke-linejoin="round" visibility="visible" stroke="rgba(192,192,192,0.0001)" stroke-width="22" zIndex="2" class=" highcharts-tracker" style=""></path></g><g class="highcharts-markers highcharts-tracker" visibility="visible" zIndex="0.1" transform="translate(50,0) scale(1 1)" clip-path="none" style=""><path fill="#00b300" d="M 563.9372222222222 239.21489209565334 L 568.9372222222222 244.21489209565334 563.9372222222222 249.21489209565334 558.9372222222222 244.21489209565334 Z" stroke="#888888" stroke-width="2" visibility="hidden"></path></g><g class="highcharts-series" visibility="visible" zIndex="0.1" transform="translate(50,0) scale(1 1)" clip-path="url(#highcharts-2)"><path fill="none" d="M 8.046666666666667 291.375 L 48.28 291.375 L 88.51333333333334 291.375 L 128.74666666666667 291.375 L 168.98 291.375 L 209.21333333333334 291.375 L 249.44666666666666 291.375 L 289.68 291.375 L 329.9133333333333 291.375 L 370.14666666666665 291.375 L 410.38 291.375 L 450.61333333333334 291.375 L 490.84666666666664 291.375 L 531.0799999999999 291.375 L 571.3133333333333 291.375 L 611.5466666666666 291.375 L 651.78 291.375 L 692.0133333333333 291.375 L 732.2466666666667 291.375 L 772.48 291.375 L 812.7133333333333 291.375 L 852.9466666666666 291.375 L 893.18 286.51470000316476 L 933.4133333333333 291.375 L 973.6466666666666 291.375 L 1013.88 291.375 L 1054.1133333333332 291.375 L 1094.3466666666666 291.375 L 1134.58 291.375 L 1174.8133333333333 291.375 L 1215.0466666666666 291.375 L 1255.28 291.375 L 1295.5133333333333 291.375 L 1335.7466666666667 291.375 L 1375.98 291.375 L 1416.2133333333334 291.375 L 1456.4466666666667 291.375 L 1496.6799999999998 291.375 L 1536.9133333333332 291.375 L 1577.1466666666665 291.375 L 1617.3799999999999 291.375 L 1657.6133333333332 291.375 L 1697.8466666666666 291.375 L 1738.08 291.375 L 1778.3133333333333 291.375 L 1818.5466666666666 291.375 L 1858.78 291.375 L 1899.0133333333333 291.375 L 1939.2466666666667 291.375 L 1979.48 291.375 L 2019.7133333333334 291.375 L 2059.9466666666667 291.375 L 2100.18 291.375 L 2140.4133333333334 291.375 L 2180.6466666666665 286.61593062973407 L 2220.88 291.375 L 2261.1133333333332 291.375 L 2301.346666666667 291.375 L 2341.58 291.375 L 2381.813333333333 291.375" stroke="#e5e500" stroke-width="2" zIndex="1" stroke-linejoin="round" stroke-linecap="round"></path><path fill="none" d="M -1.9533333333333331 291.375 L 8.046666666666667 291.375 L 48.28 291.375 L 88.51333333333334 291.375 L 128.74666666666667 291.375 L 168.98 291.375 L 209.21333333333334 291.375 L 249.44666666666666 291.375 L 289.68 291.375 L 329.9133333333333 291.375 L 370.14666666666665 291.375 L 410.38 291.375 L 450.61333333333334 291.375 L 490.84666666666664 291.375 L 531.0799999999999 291.375 L 571.3133333333333 291.375 L 611.5466666666666 291.375 L 651.78 291.375 L 692.0133333333333 291.375 L 732.2466666666667 291.375 L 772.48 291.375 L 812.7133333333333 291.375 L 852.9466666666666 291.375 L 893.18 286.51470000316476 L 933.4133333333333 291.375 L 973.6466666666666 291.375 L 1013.88 291.375 L 1054.1133333333332 291.375 L 1094.3466666666666 291.375 L 1134.58 291.375 L 1174.8133333333333 291.375 L 1215.0466666666666 291.375 L 1255.28 291.375 L 1295.5133333333333 291.375 L 1335.7466666666667 291.375 L 1375.98 291.375 L 1416.2133333333334 291.375 L 1456.4466666666667 291.375 L 1496.6799999999998 291.375 L 1536.9133333333332 291.375 L 1577.1466666666665 291.375 L 1617.3799999999999 291.375 L 1657.6133333333332 291.375 L 1697.8466666666666 291.375 L 1738.08 291.375 L 1778.3133333333333 291.375 L 1818.5466666666666 291.375 L 1858.78 291.375 L 1899.0133333333333 291.375 L 1939.2466666666667 291.375 L 1979.48 291.375 L 2019.7133333333334 291.375 L 2059.9466666666667 291.375 L 2100.18 291.375 L 2140.4133333333334 291.375 L 2180.6466666666665 286.61593062973407 L 2220.88 291.375 L 2261.1133333333332 291.375 L 2301.346666666667 291.375 L 2341.58 291.375 L 2381.813333333333 291.375 L 2391.813333333333 291.375" stroke-linejoin="round" visibility="visible" stroke="rgba(192,192,192,0.0001)" stroke-width="22" zIndex="2" class=" highcharts-tracker" style=""></path></g><g class="highcharts-markers highcharts-tracker" visibility="visible" zIndex="0.1" transform="translate(50,0) scale(1 1)" clip-path="none" style=""></g></g><g class="highcharts-legend" zIndex="7" transform="translate(0,349)"><g zIndex="1"><g><g class="highcharts-legend-item" zIndex="1" transform="translate(8,3)"><path fill="none" d="M 0 11 L 30 11" stroke-width="2" stroke="#f00c5c"></path><text x="35" y="15" style="color:#3E576F;font-size:12px;font-weight:normal;cursor:pointer;fill:#3E576F;" text-anchor="start" zIndex="2">anyid.reqSvcErrCntPerSec/colo.pool.SUM{r1ersxid:lvs}</text></g><g class="highcharts-legend-item" zIndex="1" transform="translate(375.328125,3)"><path fill="none" d="M 0 11 L 30 11" stroke-width="2" stroke="#00b300"></path><text x="35" y="15" style="color:#3E576F;font-size:12px;font-weight:normal;cursor:pointer;fill:#3E576F;" text-anchor="start" zIndex="2">anyid.reqSvcErrCntPerSec/colo.pool.SUM{r1ersxid:slc}</text></g><g class="highcharts-legend-item" zIndex="1" transform="translate(742.578125,3)"><path fill="none" d="M 0 11 L 30 11" stroke-width="2" stroke="#e5e500"></path><text x="35" y="15" style="color:#3E576F;font-size:12px;font-weight:normal;cursor:pointer;fill:#3E576F;" text-anchor="start" zIndex="2">anyid.reqSvcErrCntPerSec/colo.pool.SUM{r1ersxid:phx}</text></g></g></g></g><g class="highcharts-axis-labels highcharts-xaxis-labels" zIndex="7"><text x="116.38499999999999" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:04</text><text x="196.85166666666666" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:06</text><text x="277.3183333333333" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:08</text><text x="357.78499999999997" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:10</text><text x="438.25166666666667" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:12</text><text x="518.7183333333332" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:14</text><text x="599.185" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:16</text><text x="679.6516666666666" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:18</text><text x="760.1183333333333" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:20</text><text x="840.5849999999999" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:22</text><text x="921.0516666666666" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:24</text><text x="1001.5183333333333" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:26</text><text x="1081.985" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:28</text><text x="1162.4516666666666" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:30</text><text x="1242.9183333333333" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:32</text><text x="1323.385" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:34</text><text x="1403.8516666666667" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:36</text><text x="1484.3183333333334" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:38</text><text x="1564.7849999999999" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:40</text><text x="1645.2516666666666" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:42</text><text x="1725.7183333333332" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:44</text><text x="1806.185" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:46</text><text x="1886.6516666666666" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:48</text><text x="1967.1183333333333" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:50</text><text x="2047.585" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:52</text><text x="2128.0516666666667" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:54</text><text x="2208.5183333333334" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:56</text><text x="2288.985" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">15:58</text><text x="2369.4516666666664" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">16:00</text><text x="2448.3515625" text-anchor="middle" style="color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="353" opacity="1">16:02</text></g><g class="highcharts-axis-labels highcharts-yaxis-labels" zIndex="7"><text x="20" text-anchor="start" style="width:30px;color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="343" opacity="1">-0.0005</text><text x="20" text-anchor="start" style="width:30px;color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="301.375" opacity="1">0</text><text x="20" text-anchor="start" style="width:30px;color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="259.75" opacity="1">0.0005</text><text x="20" text-anchor="start" style="width:30px;color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="218.125" opacity="1">0.001</text><text x="20" text-anchor="start" style="width:30px;color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="176.5" opacity="1">0.0015</text><text x="20" text-anchor="start" style="width:30px;color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="134.875" opacity="1">0.002</text><text x="20" text-anchor="start" style="width:30px;color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="93.25" opacity="1">0.0025</text><text x="20" text-anchor="start" style="width:30px;color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="51.625" opacity="1">0.003</text><text x="20" text-anchor="start" style="width:30px;color:#2a2a2a;cursor:default;font-size:11px;fill:#2a2a2a;" y="10" opacity="1">0.0035</text></g><g class="highcharts-axis-labels highcharts-yaxis-labels" zIndex="7"></g><g class="highcharts-tooltip" zIndex="8" style="cursor:default;padding:0;white-space:nowrap;" transform="translate(441,165)" opacity="0" visibility="hidden"><path fill="none" d="M 3.5 0.5 L 343.5 0.5 C 346.5 0.5 346.5 0.5 346.5 3.5 L 346.5 60.5 C 346.5 63.5 346.5 63.5 343.5 63.5 L 179.5 63.5 173.5 69.5 167.5 63.5 3.5 63.5 C 0.5 63.5 0.5 63.5 0.5 60.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" stroke-width="5" isShadow="true" stroke="black" stroke-opacity="0.049999999999999996" transform="translate(1, 1)" width="346" height="63"></path><path fill="none" d="M 3.5 0.5 L 343.5 0.5 C 346.5 0.5 346.5 0.5 346.5 3.5 L 346.5 60.5 C 346.5 63.5 346.5 63.5 343.5 63.5 L 179.5 63.5 173.5 69.5 167.5 63.5 3.5 63.5 C 0.5 63.5 0.5 63.5 0.5 60.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" stroke-width="3" isShadow="true" stroke="black" stroke-opacity="0.09999999999999999" transform="translate(1, 1)" width="346" height="63"></path><path fill="none" d="M 3.5 0.5 L 343.5 0.5 C 346.5 0.5 346.5 0.5 346.5 3.5 L 346.5 60.5 C 346.5 63.5 346.5 63.5 343.5 63.5 L 179.5 63.5 173.5 69.5 167.5 63.5 3.5 63.5 C 0.5 63.5 0.5 63.5 0.5 60.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" stroke-width="1" isShadow="true" stroke="black" stroke-opacity="0.15" transform="translate(1, 1)" width="346" height="63"></path><path fill="rgba(249, 249, 249, .85)" d="M 3.5 0.5 L 343.5 0.5 C 346.5 0.5 346.5 0.5 346.5 3.5 L 346.5 60.5 C 346.5 63.5 346.5 63.5 343.5 63.5 L 179.5 63.5 173.5 69.5 167.5 63.5 3.5 63.5 C 0.5 63.5 0.5 63.5 0.5 60.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" stroke-width="1" stroke="#00b300"></path><text x="8" zIndex="1" style="font-size:12px;color:#333333;fill:#333333;" y="21"><tspan>anyid.reqSvcErrCntPerSec/colo.pool.SUM</tspan><tspan x="8" dy="16">{r1ersxid:slc}</tspan><tspan x="8" dy="16">Wednesday, Oct 4, 3:16pm : </tspan><tspan style="font-weight:bold" dx="0">0.0005664877826347947</tspan></text></g></svg></div></div></div></li></ul></div></div></div></div>
+  
+  <section class="alerts" style="display: none;">
+  </section>
+
+  <!-- EWA Tracking -->
+  <script type="text/javascript" src="./Dashboard_ ERS Summary_files/roverlv.js"></script>
+  <script src="./Dashboard_ ERS Summary_files/config.js"></script>
+
+  <script charset="UTF-8" type="text/javascript" src="./Dashboard_ ERS Summary_files/mysherlock.min.js"></script>
+  <script type="text/javascript" src="./Dashboard_ ERS Summary_files/sherlock-datetime_v2.js"></script>
+  <script type="text/javascript" src="./Dashboard_ ERS Summary_files/mysherlock_global.js"></script>
+  <script type="text/javascript" src="./Dashboard_ ERS Summary_files/sherlock_header.js"></script>
+  <script type="text/javascript" src="./Dashboard_ ERS Summary_files/mysherlock_groups.js"></script>
+    
+  <script>
+    requirejs.config({
+      urlArgs: "_cache_v=" + "2017-09-21T18:58:53Z",
+      baseUrl: '../assets/js/libs',
+      waitSeconds: 60,
+      paths: {
+        tsdbcli: 'tsdbcli',
+        ui : 'ui',
+        'd3' : 'https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min',
+      }
+    });
+    
+    var pathArray = window.location.pathname.split( '/' );
+    var dashboardId = pathArray[3];
+    
+    function refresh() {
+      $.ajax({
+          url : "/CustomDashboards/view/" + dashboardId,
+          type : "get",
+          dataType : "json",
+          success : function(jsObj) {
+        	  groupsObj.getGroupInfoById(jsObj.ownerGroup, function(jsonres){
+        		  function isOwner(jsObj) {
+	    		        for ( var x in jsObj.owner) {
+	    		          if (groupsObj && (jsObj.owner[x] == groupsObj.owner)) {
+	    		            return true;
+	    		          }
+	    		        }
+	    		        return false;
+	    		  }
+        		  
+        		  if(isOwner(jsonres)) {
+	                    $("#btn-edit").show();
+	              } else {
+	            	  $("#btn-edit").remove();
+	              }
+        	  });
+
+            $(document).ready(function() {
+                  document.title = "Dashboard: " + jsObj.name;
+                  $(".title").html('<span class="glyphicon glyphicon-dashboard"></span> ' + jsObj.name);
+            });
+
+            setTimeout(function() {
+              $("#btn-copyurl").zclip({
+           		path:'/MySherlockApp/assets/js/libs/3rdparty/ZeroClipboard.swf',
+           		copy:function() {
+           		  return window.location.href;
+           	    },
+           		afterCopy:function(){
+           		 $("#btn-copyurl").append('<span class="temp"> Copied!</span>');
+           		 $("#btn-copyurl").addClass("btn-success");
+           		 
+           		 setTimeout(function() {
+           		  $("#btn-copyurl .temp").remove();
+           		  $("#btn-copyurl").removeClass("btn-success");
+           		 }, 1500);
+           		}
+              });
+            }, 1500);
+            
+            require([ "ui/DashboardRenderer" ], function(DashboardRender) {
+              new DashboardRender({
+                dashboardConfig : jsObj,
+                editable : false
+              });
+            });
+          }
+        });
+      }
+
+      refresh();
+
+
+       _rover.setAppId(1728);
+       var pageImpEvent = 2157602;
+       var impEvt = _rover.createPageImpEvent(pageImpEvent);
+       impEvt.setLVTrk(true);
+       ebayLVTr.setRover(_rover);
+       ebayLVTr.setPageImpEvent(pageImpEvent);
+       ebayLVTrClk._ebayLVTrackerClk_init_tracker();
+       _rover.track();
+
+    </script>
+  
+  <script type="text/javascript">
+  $(document).ready(function() {
+	var params = {};
+	var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+	 params[key] = decodeURIComponent(value);
+    });
+	
+	var waitForElement = function(element, _callback) {
+		var job = setInterval(function() {
+			if($(element).length) {
+		      clearInterval(job)
+  			  _callback();
+			}
+		}, 1)
+	}
+	
+    $("#btn-edit").click(function() {
+      window.location.href = "../MyDashboards?edit="+dashboardId;
+    });
+    
+    $("#btn-fullscreen").click(function() {
+      if(document.mozFullScreen || document.webkitIsFullScreen) {
+	  	var elem = document;
+        req = elem.exitFullscreen || elem.webkitExitFullscreen  || elem.mozCancelFullScreen;
+      	req.call(elem);
+      } else {
+	  	var elem = document.documentElement;
+        req = elem.requestFullScreen || elem.webkitRequestFullScreen || elem.mozRequestFullScreen;
+      	req.call(elem);
+      }
+    });
+    
+    var changeHandler = function() {                                           
+      if(document.mozFullScreen || document.webkitIsFullScreen) {
+        $("#Sherlock_Main_Header").hide();
+        if(params.hideControls) {
+        	$("#dashboardHeader").hide();
+        }
+        $("#btn-fullscreen").attr('title', 'Exit Full Screen').find('span').removeClass("glyphicon-resize-full").addClass("glyphicon-resize-small");
+        $("section.alerts").height($("body").height() - $("section.alerts").offset().top - 10); 
+      } else {
+        $("#Sherlock_Main_Header, #Sherlock_Main_Header > div, #dashboardHeader").show().css("visibility", "visible");
+        $("#btn-fullscreen").attr('title', 'View in Full Screen').find('span').addClass("glyphicon-resize-full").removeClass("glyphicon-resize-small");
+        $("section.alerts").height($("body").height() - $("section.alerts").offset().top - 10); 
+      }
+    }                                                                         
+   document.addEventListener("fullscreenchange", changeHandler, false);      
+   document.addEventListener("webkitfullscreenchange", changeHandler, false);
+   document.addEventListener("mozfullscreenchange", changeHandler, false);
+   
+   $(window).resize(function() {
+	  // adjust height of bottom alerts section
+      $("section.alerts").height($("body").height() - $("section.alerts").offset().top - 10); 
+   });
+  });
+  </script>
+
+
+
+<div class="modal fade" id="feedbackcontrol" data-html2canvas-ignore="true">
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h4 class="modal-title">We are listening !</h4>
+		</div>
+		<div class="modal-body">
+			<p>We would like to drive towards continuous improvement and make better products for our customers. Your feedback is very valuable to us.</p>
+
+			<form class="">
+				<fieldset>
+
+					<!-- Select Basic -->
+					<div class="">
+						<label class="" for="suggestion_or_bug">Is this a feedback or a bug ? *</label>
+						<div class="">
+							<select id="suggestion_or_bug" name="suggestion_or_bug" style="width: 50%; height: 28px;">
+								<option value="Suggestion">Feedback</option>
+								<option value="Bug">Bug</option>
+							</select>
+							
+						</div>
+					</div>
+					<br>
+					<!-- Text input-->
+					<div class="">
+						<label class="" for="feedbackSummary">Summary/Title *</label>
+						<div class="">
+							<input id="feedbackSummary" name="feedbackSummary" type="text" placeholder="Please provide a brief description." style="width: 80%; height: 28px;" required="">
+							
+						</div>
+					</div>
+					<br>
+					<!-- Textarea -->
+					<div class="">
+						<label class="" for="feedbackDetails">Details *</label>
+						<div>
+							<textarea style="width: 80%; height: 100px;" id="feedbackDetails" name="feedbackDetails">Please provide details about your feedback or the bug.</textarea>
+						</div>
+					</div>
+
+				</fieldset>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary" id="submitFeedback">Submit</button>
+		</div>
+	</div>
+</div></div><div class="feedbackbutton" id="feedbackbutton" data-html2canvas-ignore="true">Feedback</div><footer id="certifiedBrowsers" style="display: none;"><br><p align="right" style="z-index:9999999;" class="footer">Certified for Chrome / Safari</p></footer><div class="AnyTime-win AnyTime-pkr ui-widget ui-widget-content ui-corner-all" style="width: 0px; height: 0px; display: none; position: absolute;" id="AnyTime--form_datetime_stDT" aria-live="off"><h5 class="AnyTime-hdr ui-widget-header ui-corner-top">Select a Date and Time</h5><div class="AnyTime-body" style="width:0;height:0"><div class="AnyTime-date" style="width:0;height:0"><h6 class="AnyTime-lbl AnyTime-lbl-yr">Year</h6><ul class="AnyTime-yrs ui-helper-reset"><li class="AnyTime-btn AnyTime-yrs-past-btn ui-state-default">&lt;</li><li class="AnyTime-btn AnyTime-yr-prior-btn ui-state-default">1</li><li class="AnyTime-btn AnyTime-yr-cur-btn AnyTime-cur-btn ui-state-default ui-state-highlight">2</li><li class="AnyTime-btn AnyTime-yr-next-btn ui-state-default">3</li><li class="AnyTime-btn AnyTime-yrs-ahead-btn ui-state-default">&gt;</li></ul><h6 class="AnyTime-lbl AnyTime-lbl-month">Month</h6><ul class="AnyTime-mons"><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon1-btn ui-state-default">Jan</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon2-btn ui-state-default">Feb</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon3-btn ui-state-default">Mar</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon4-btn ui-state-default">Apr</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon5-btn ui-state-default">May</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon6-btn ui-state-default">Jun</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon7-btn ui-state-default">Jul</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon8-btn ui-state-default">Aug</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon9-btn ui-state-default">Sep</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon10-btn ui-state-default">Oct</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon11-btn ui-state-default">Nov</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon12-btn ui-state-default">Dec</li></ul><h6 class="AnyTime-lbl AnyTime-lbl-dom">Day of Month</h6><table border="0" cellpadding="0" cellspacing="0" class="AnyTime-dom-table"><thead class="AnyTime-dom-head"><tr class="AnyTime-dow"><th class="AnyTime-dow AnyTime-dow1">Mon</th><th class="AnyTime-dow AnyTime-dow2">Tue</th><th class="AnyTime-dow AnyTime-dow3">Wed</th><th class="AnyTime-dow AnyTime-dow4">Thu</th><th class="AnyTime-dow AnyTime-dow5">Fri</th><th class="AnyTime-dow AnyTime-dow6">Sat</th><th class="AnyTime-dow AnyTime-dow7">Sun</th></tr></thead><tbody class="AnyTime-dom-body"><tr class="AnyTime-wk AnyTime-wk1"><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td></tr><tr class="AnyTime-wk AnyTime-wk2"><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td></tr><tr class="AnyTime-wk AnyTime-wk3"><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td></tr><tr class="AnyTime-wk AnyTime-wk4"><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td></tr><tr class="AnyTime-wk AnyTime-wk5"><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td></tr><tr class="AnyTime-wk AnyTime-wk6"><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td></tr></tbody></table><div class="AnyTime-now-btn ui-state-default">Now</div></div><div class="AnyTime-time" style="width:0;height:0"><div class="AnyTime-hrs"><h6 class="AnyTime-lbl AnyTime-lbl-hr">Hour</h6><ul class="AnyTime-hrs-am"><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr0-btn ui-state-default">00</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr1-btn ui-state-default">01</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr2-btn ui-state-default">02</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr3-btn ui-state-default">03</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr4-btn ui-state-default">04</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr5-btn ui-state-default">05</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr6-btn ui-state-default">06</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr7-btn ui-state-default">07</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr8-btn ui-state-default">08</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr9-btn ui-state-default">09</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr10-btn ui-state-default">10</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr11-btn ui-state-default">11</li></ul><ul class="AnyTime-hrs-pm"><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr12-btn ui-state-default">12</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr13-btn ui-state-default">13</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr14-btn ui-state-default">14</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr15-btn ui-state-default">15</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr16-btn ui-state-default">16</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr17-btn ui-state-default">17</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr18-btn ui-state-default">18</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr19-btn ui-state-default">19</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr20-btn ui-state-default">20</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr21-btn ui-state-default">21</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr22-btn ui-state-default">22</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr23-btn ui-state-default">23</li></ul></div><div class="AnyTime-mins"><h6 class="AnyTime-lbl AnyTime-lbl-min">Minute</h6><ul class="AnyTime-mins-tens"><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min00-btn ui-state-default">0</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min10-btn ui-state-default">1</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min20-btn ui-state-default">2</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min30-btn ui-state-default">3</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min40-btn ui-state-default">4</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min50-btn ui-state-default">5</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min60-btn ui-state-default AnyTime-min-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min70-btn ui-state-default AnyTime-min-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min80-btn ui-state-default AnyTime-min-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min90-btn ui-state-default AnyTime-min-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min100-btn ui-state-default AnyTime-min-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min110-btn ui-state-default AnyTime-min-ten-btn-empty ui-state-disabled">&nbsp;</li></ul><ul class="AnyTime-mins-ones"><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min0-btn ui-state-default">0</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min1-btn ui-state-default">1</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min2-btn ui-state-default">2</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min3-btn ui-state-default">3</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min4-btn ui-state-default">4</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min5-btn ui-state-default">5</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min6-btn ui-state-default">6</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min7-btn ui-state-default">7</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min8-btn ui-state-default">8</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min9-btn ui-state-default">9</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min100-btn ui-state-default AnyTime-min-one-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min110-btn ui-state-default AnyTime-min-one-btn-empty ui-state-disabled">&nbsp;</li></ul></div><div class="AnyTime-secs"><h6 class="AnyTime-lbl AnyTime-lbl-sec">Second</h6><ul class="AnyTime-secs-tens"><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec00-btn ui-state-default">0</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec10-btn ui-state-default">1</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec20-btn ui-state-default">2</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec30-btn ui-state-default">3</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec40-btn ui-state-default">4</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec50-btn ui-state-default">5</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec60-btn ui-state-default AnyTime-sec-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec70-btn ui-state-default AnyTime-sec-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec80-btn ui-state-default AnyTime-sec-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec90-btn ui-state-default AnyTime-sec-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec100-btn ui-state-default AnyTime-sec-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec110-btn ui-state-default AnyTime-sec-ten-btn-empty ui-state-disabled">&nbsp;</li></ul><ul class="AnyTime-secs-ones"><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec0-btn ui-state-default">0</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec1-btn ui-state-default">1</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec2-btn ui-state-default">2</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec3-btn ui-state-default">3</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec4-btn ui-state-default">4</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec5-btn ui-state-default">5</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec6-btn ui-state-default">6</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec7-btn ui-state-default">7</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec8-btn ui-state-default">8</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec9-btn ui-state-default">9</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec100-btn ui-state-default AnyTime-sec-one-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec110-btn ui-state-default AnyTime-sec-one-btn-empty ui-state-disabled">&nbsp;</li></ul></div></div></div></div><div class="AnyTime-win AnyTime-pkr ui-widget ui-widget-content ui-corner-all" style="width: 0px; height: 0px; display: none; position: absolute;" id="AnyTime--form_datetime_endDT" aria-live="off"><h5 class="AnyTime-hdr ui-widget-header ui-corner-top">Select a Date and Time</h5><div class="AnyTime-body" style="width:0;height:0"><div class="AnyTime-date" style="width:0;height:0"><h6 class="AnyTime-lbl AnyTime-lbl-yr">Year</h6><ul class="AnyTime-yrs ui-helper-reset"><li class="AnyTime-btn AnyTime-yrs-past-btn ui-state-default">&lt;</li><li class="AnyTime-btn AnyTime-yr-prior-btn ui-state-default">1</li><li class="AnyTime-btn AnyTime-yr-cur-btn AnyTime-cur-btn ui-state-default ui-state-highlight">2</li><li class="AnyTime-btn AnyTime-yr-next-btn ui-state-default">3</li><li class="AnyTime-btn AnyTime-yrs-ahead-btn ui-state-default">&gt;</li></ul><h6 class="AnyTime-lbl AnyTime-lbl-month">Month</h6><ul class="AnyTime-mons"><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon1-btn ui-state-default">Jan</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon2-btn ui-state-default">Feb</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon3-btn ui-state-default">Mar</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon4-btn ui-state-default">Apr</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon5-btn ui-state-default">May</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon6-btn ui-state-default">Jun</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon7-btn ui-state-default">Jul</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon8-btn ui-state-default">Aug</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon9-btn ui-state-default">Sep</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon10-btn ui-state-default">Oct</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon11-btn ui-state-default">Nov</li><li class="AnyTime-btn AnyTime-mon-btn AnyTime-mon12-btn ui-state-default">Dec</li></ul><h6 class="AnyTime-lbl AnyTime-lbl-dom">Day of Month</h6><table border="0" cellpadding="0" cellspacing="0" class="AnyTime-dom-table"><thead class="AnyTime-dom-head"><tr class="AnyTime-dow"><th class="AnyTime-dow AnyTime-dow1">Mon</th><th class="AnyTime-dow AnyTime-dow2">Tue</th><th class="AnyTime-dow AnyTime-dow3">Wed</th><th class="AnyTime-dow AnyTime-dow4">Thu</th><th class="AnyTime-dow AnyTime-dow5">Fri</th><th class="AnyTime-dow AnyTime-dow6">Sat</th><th class="AnyTime-dow AnyTime-dow7">Sun</th></tr></thead><tbody class="AnyTime-dom-body"><tr class="AnyTime-wk AnyTime-wk1"><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td></tr><tr class="AnyTime-wk AnyTime-wk2"><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td></tr><tr class="AnyTime-wk AnyTime-wk3"><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td></tr><tr class="AnyTime-wk AnyTime-wk4"><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td></tr><tr class="AnyTime-wk AnyTime-wk5"><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td></tr><tr class="AnyTime-wk AnyTime-wk6"><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td><td class="AnyTime-btn AnyTime-dom-btn ui-state-default">x</td></tr></tbody></table><div class="AnyTime-now-btn ui-state-default">Now</div></div><div class="AnyTime-time" style="width:0;height:0"><div class="AnyTime-hrs"><h6 class="AnyTime-lbl AnyTime-lbl-hr">Hour</h6><ul class="AnyTime-hrs-am"><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr0-btn ui-state-default">00</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr1-btn ui-state-default">01</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr2-btn ui-state-default">02</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr3-btn ui-state-default">03</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr4-btn ui-state-default">04</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr5-btn ui-state-default">05</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr6-btn ui-state-default">06</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr7-btn ui-state-default">07</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr8-btn ui-state-default">08</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr9-btn ui-state-default">09</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr10-btn ui-state-default">10</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr11-btn ui-state-default">11</li></ul><ul class="AnyTime-hrs-pm"><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr12-btn ui-state-default">12</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr13-btn ui-state-default">13</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr14-btn ui-state-default">14</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr15-btn ui-state-default">15</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr16-btn ui-state-default">16</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr17-btn ui-state-default">17</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr18-btn ui-state-default">18</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr19-btn ui-state-default">19</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr20-btn ui-state-default">20</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr21-btn ui-state-default">21</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr22-btn ui-state-default">22</li><li class="AnyTime-btn AnyTime-hr-btn AnyTime-hr23-btn ui-state-default">23</li></ul></div><div class="AnyTime-mins"><h6 class="AnyTime-lbl AnyTime-lbl-min">Minute</h6><ul class="AnyTime-mins-tens"><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min00-btn ui-state-default">0</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min10-btn ui-state-default">1</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min20-btn ui-state-default">2</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min30-btn ui-state-default">3</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min40-btn ui-state-default">4</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min50-btn ui-state-default">5</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min60-btn ui-state-default AnyTime-min-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min70-btn ui-state-default AnyTime-min-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min80-btn ui-state-default AnyTime-min-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min90-btn ui-state-default AnyTime-min-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min100-btn ui-state-default AnyTime-min-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-min-ten-btn AnyTime-min110-btn ui-state-default AnyTime-min-ten-btn-empty ui-state-disabled">&nbsp;</li></ul><ul class="AnyTime-mins-ones"><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min0-btn ui-state-default">0</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min1-btn ui-state-default">1</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min2-btn ui-state-default">2</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min3-btn ui-state-default">3</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min4-btn ui-state-default">4</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min5-btn ui-state-default">5</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min6-btn ui-state-default">6</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min7-btn ui-state-default">7</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min8-btn ui-state-default">8</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min9-btn ui-state-default">9</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min100-btn ui-state-default AnyTime-min-one-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-min-one-btn AnyTime-min110-btn ui-state-default AnyTime-min-one-btn-empty ui-state-disabled">&nbsp;</li></ul></div><div class="AnyTime-secs"><h6 class="AnyTime-lbl AnyTime-lbl-sec">Second</h6><ul class="AnyTime-secs-tens"><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec00-btn ui-state-default">0</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec10-btn ui-state-default">1</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec20-btn ui-state-default">2</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec30-btn ui-state-default">3</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec40-btn ui-state-default">4</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec50-btn ui-state-default">5</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec60-btn ui-state-default AnyTime-sec-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec70-btn ui-state-default AnyTime-sec-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec80-btn ui-state-default AnyTime-sec-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec90-btn ui-state-default AnyTime-sec-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec100-btn ui-state-default AnyTime-sec-ten-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-sec-ten-btn AnyTime-sec110-btn ui-state-default AnyTime-sec-ten-btn-empty ui-state-disabled">&nbsp;</li></ul><ul class="AnyTime-secs-ones"><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec0-btn ui-state-default">0</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec1-btn ui-state-default">1</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec2-btn ui-state-default">2</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec3-btn ui-state-default">3</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec4-btn ui-state-default">4</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec5-btn ui-state-default">5</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec6-btn ui-state-default">6</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec7-btn ui-state-default">7</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec8-btn ui-state-default">8</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec9-btn ui-state-default">9</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec100-btn ui-state-default AnyTime-sec-one-btn-empty ui-state-disabled">&nbsp;</li><li class="AnyTime-btn AnyTime-sec-one-btn AnyTime-sec110-btn ui-state-default AnyTime-sec-one-btn-empty ui-state-disabled">&nbsp;</li></ul></div></div></div></div></body></html>

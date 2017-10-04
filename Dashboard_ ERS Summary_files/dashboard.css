@@ -1,0 +1,244 @@
+.gridster * {
+  margin:0;
+  padding:0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+#dashboardHeader  {
+	font-weight: bold;
+	padding: 5px;
+	font-size: 20px;
+	margin: 10px;
+	background-color: #f5f5f5;
+	border-radius: 3px;
+}
+
+#dashboardHeader > div, #dashboardHeader > div > div {
+  display: inline-block;
+}
+
+#timeControl {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+#mainDashboard > .panel {
+	margin: 10px;
+	border-radius: 0;
+	text-align: center;
+}
+
+#mainDashboard > .panel > .panel-heading {
+	font-weight: bold;
+	color: #333;
+	background-color: #eee;
+	text-align: left;
+	border-bottom: none;
+	opacity: 0.8
+}
+
+#mainDashboard .gridster {
+	padding: 0 !important;
+}
+
+.gridster ul {
+  width: 100%;
+}
+
+.gridster > ul.onHover {
+  background-color: rgba(217,237,247,0.3);
+  border: 4px dashed rgba(153,153,153, 0.3);
+}
+
+.gridster li {
+  font-size: 1em !important;
+  line-height: 100%;;
+}
+
+.gridster {
+  margin: 0 auto;
+  opacity: .8;
+  -webkit-transition: opacity .6s;
+  -moz-transition: opacity .6s;
+  -o-transition: opacity .6s;
+  -ms-transition: opacity .6s;
+  transition: opacity .6s;
+  background-color: #eeeeee
+}
+
+.gridster .gs-w {
+  background: #D1FFE0;
+  cursor: pointer;
+}
+
+.gridster .player {
+  background: #BBB;
+}
+
+
+.gridster .preview-holder {
+  border: 4px dashed #999!important;
+  background: #d9edf7!important;
+}
+
+.gridster li .panel-heading {
+  cursor: move;
+}
+
+
+#mainDashboard .panel-heading {
+  cursor: default;
+}
+
+.gridster li .panel {
+  cursor: default;
+}
+
+#mainDashboard .gridster > ul .panel-title {
+	font-size: 13px;
+	color: #111;
+	font-weight: bold;
+} 
+
+#mainDashboard .gridster > ul .panel-title a {
+  color: #111;
+}
+
+.ajax_loader {background: url("../images/spinner_squares_circle.gif") no-repeat center center transparent;width:100%;height:100%;}
+
+body {
+  overflow-x:hidden;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.gridster .panel-heading {
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+	background-color: #ffffff;
+	border-color: #f5f5f5;
+}
+
+#mainShDashboard .gridster > ul > li:hover {
+	box-shadow: 2px 2px 10px #666;
+}
+
+.gridster .panel {
+	border-radius: 0;
+}
+
+#timeControl .btn:active,
+#timeControl .btn.active {
+	box-shadow: none;
+}
+
+#mainDashboard .btn-remove-graph,
+#mainDashboard .btn-refresh-graph {
+    display: none;
+}
+/* Alerts section - Dynamic */
+section.alerts {
+	background-color: #f5f5f5;
+	color: #222;
+	margin: 10px;
+	font-family: 'Open Sans', sans-serif;
+  	font-size: 14px;
+}
+
+.currentAlerts, .recentAlerts {
+	display: inline-block;
+	border: 2px solid #eee;
+	height: 100%;
+	float: left;
+	overflow-y: auto;
+}
+
+.currentAlerts {
+	width: calc(200% / 3);
+}
+
+.recentAlerts {
+	width: calc(100% / 3);
+}
+
+.currentAlerts>.header, .recentAlerts>.header {
+	line-height: 30px;
+	text-align: center;
+	background-color: #eee;
+}
+
+svg {
+	display: inline-block;
+	float: left;
+}
+
+.total {
+	display: flex;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column;
+    text-align: center;
+	width: 80px;
+	height: 40px;
+	border-radius: 5px;
+	float: left;
+	margin: 10px 0;
+	font-weight: 700;
+	color: #000;
+	font-size: 16px;
+}
+
+.template {
+	display: none;
+}
+
+.entry {
+	cursor: pointer;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #333;
+  shape-rendering: crispEdges;
+  stroke-width: 1px;
+}
+
+.axis line {
+	stroke: none;
+}
+
+.axis text {
+	fill: #333;
+}
+
+.alerts ul {
+	margin: 0;
+	padding: 0;
+}
+
+.alerts ul li {
+	display: inline-block;
+	border: 1px solid #ddd;
+	margin: 3px;
+	margin-bottom: 0;
+	background-color: white;
+}
+
+text.shadow {
+  stroke: rgb(45, 45, 45);
+  stroke-width: 3px;
+  opacity: 0.9;
+}
+
+.header .timestamp {
+	float: right;
+	margin-right: 10px;
+	color: #333
+}

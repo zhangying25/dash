@@ -1,0 +1,116 @@
+@font-face {
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  src: url("flaticon.eot");
+  src: url("flaticon.eot#iefix") format("embedded-opentype"),
+  url("flaticon.woff") format("woff"),
+  url("flaticon.ttf") format("truetype"),
+  url("flaticon.svg") format("svg");
+}
+
+.bs-glyphicons [class*="flaticon-"]:before {
+  font-family: "Flaticon";
+  display: inline-block;
+  font-style: normal;
+  font-size:18px;
+  font-weight: 400;
+  line-height: 1;
+  top: 1px;
+}
+
+.flaticon-group:before {
+  content: "\e000";
+}
+.flaticon-slide1:before {
+  font-size: 20px !important;
+  content: "\e001";
+}
+
+.bs-glyphicons .glyphicon, .bs-glyphicons [class*="flaticon-"] {
+  font-size: 16px;
+  color : black;
+}
+
+.bs-glyphicons.active .glyphicon, .bs-glyphicons.active [class*="flaticon-"] {
+  color : #025A8B;
+}
+
+.bs-glyphicons a {
+  font-weight:800;
+}
+
+.bs-glyphicons a:focus {
+  outline:none;
+}
+
+.nav.nav-tabs>li>a {
+  background-color: #efefef;
+  font-weight:100;
+  color: black;
+}
+
+.nav.nav-tabs>li.active>a {
+  background-color: white ;
+  color : #428BCA;
+  font-weight:800;
+}
+
+.modal-header {
+  font-size:16px;
+  font-weight:800;
+  background-color: #efefef;
+}
+
+thead tr{
+  font-size:12px;
+  font-weight:800;
+  background-color: #efefef;
+}
+
+#capreserv .control-label{
+  font-weight:100;
+}
+
+.capReservMetricsAndCost .panel {
+  border:0px;
+  background-color:#fff;
+  box-shadow: none; 
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none; 
+}
+
+.hlpDocCapSrv{
+  font-size:12px;
+}
+
+.hlpDocCapSrv h4{
+  font-size:13px;
+  font-weight:600;
+}
+
+.profile-fieldset {
+  border: 1px groove #ddd !important;
+  padding: 0 0.5em 1.4em 1.4em !important;
+  margin: 0 0 1.0em 0 !important;
+  -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+.profile-fieldset > .profile-name {
+  font-weight: bold !important;
+  text-align: left !important;
+  width:auto;
+  padding:0 10px;
+  border-bottom:none;
+  margin-bottom:5px;
+  font-size: 14px;
+}
+
+.profile-fieldset > .profile-name > .profile-name-text {
+  font-weight: normal !important;
+}
+
+.remove-circle:hover{
+	color: #d9534f;
+}

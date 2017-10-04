@@ -1,0 +1,192 @@
+#createDashboard {
+	overflow-y: auto;
+}
+
+#createDashboard .modal-dialog {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#createDashboard .modal-content {
+  height: 100%;
+  border-radius: 0;
+  overflow-y: scroll; 
+}
+
+#createDashboard label,
+#saveDashboard label,
+#updateDashboard label {
+	font-weight: normal;
+}
+
+#createDashboard #new {
+	display: none;
+}
+
+#createDashboard .btn-addTag {
+	display: none;
+}
+
+#createDashboard #lbl-dimensions {
+	display: none;
+}
+
+#createDashboard .mandatoryDimensionsMessage {
+	color: #c7254e;
+	display: none;
+}
+
+#createDashboard .modal-footer {
+	border-top: none;
+}
+
+#createDashboard .panel-body {
+	border-top: none;
+}
+
+#createDashboard .panel-default > .panel-heading > .panel-title {
+	cursor: pointer;
+}
+
+#createDashboard .list-profile,
+#createDashboard .list-metric,
+#createDashboard .list-dimension,
+#createDashboard .list-tagk,
+#createDashboard .list-tagv {
+	display: inline-block
+}
+
+#createDashboard .list-dimension {
+	border: 1px solid #eee;
+}
+
+#createDashboard .list-dimension * {
+	padding: 5px;
+}
+
+#createDashboard .list-tagk {
+	background-color: #f5f5f5;
+}
+
+#createDashboard ul {
+	list-style-type:none;
+	padding: 0;
+}
+
+#createDashboard #dashboard-panels > .panel {
+	overflow: visible;
+}
+
+#createDashboard .panel-small {
+	padding: none;
+}
+
+#createDashboard #graphToAdd {
+	cursor: move;
+	display: none;
+}
+
+#createDashboard #dimensionToAdd {
+	display: none;
+}
+
+#createDashboard .list-dimension {
+	margin-right: 10px;
+	margin-bottom: 5px;
+}
+
+#mainShDashboard li > div > div > header > span * {
+	font-size: 14px;
+	background-color: #f5f5f5;
+	border: none;
+}
+
+#mainShDashboard li > div > div > header > span > span:hover {
+	background: #fff;
+	color: #333333;
+	-webkit-border-radius: 2.01px;
+	border-radius: 2.01px;
+	-webkit-box-shadow: 0 0 0 1px #cccccc;
+	box-shadow: 0 0 0 1px #cccccc;
+	cursor: text;
+}
+
+#mainShDashboard li > div > div > header > span > input {
+	background: #fff;
+	color: #333333;
+	-webkit-border-radius: 2.01px;
+	border-radius: 2.01px;
+	-webkit-box-shadow: 0 0 0 1px #cccccc;
+	box-shadow: 0 0 0 1px #cccccc;
+	height: 30px;
+}
+
+#mainShDashboard .gridster > ul .panel-heading,
+#mainShDashboard .gridster > ul .panel-heading .panel-title * {
+	border: none;
+	font-size: 13px;
+	color: #111;
+	font-weight: bold;
+	text-align:center;
+} 
+
+#mainShDashboard .gridster > ul .panel-heading .panel-title > span:hover {
+	background: #fff;
+	color: #333333;
+	-webkit-border-radius: 2.01px;
+	border-radius: 2.01px;
+	-webkit-box-shadow: 0 0 0 1px #cccccc;
+	box-shadow: 0 0 0 1px #cccccc;
+	cursor: text;
+}
+
+#mainShDashboard .gridster > ul .panel-heading .panel-title > input {
+	text-align: center;
+	width: 300px !important;
+}
+
+[id^=accordion_gridster_panel] > div > header {
+	cursor: move;
+}
+
+li.sortable-placeholder {
+ 	border: 1px dashed rgba(153,153,153, 0.3);
+	height: 34px;
+	margin-bottom: 20px;
+}
+
+.btn-graph-menu {
+	color: #ddd;
+	border: none;
+	padding: 2px !important;
+}
+
+.btn-graph-menu:hover {
+	color: #666;
+	background: none;
+}
+
+.btn-graph-menu ul {
+	text-align: left;
+}
+
+#createDashboard .btn-remove-graph,
+#createDashboard .btn-refresh-graph {
+	padding: 5px;
+	border-radius: 2px;
+	width: 200px;
+}
+
+h4 > a {
+	cursor: pointer;
+}
+
+#createDashboard .col-sm-1 {width: 10%}
+#createDashboard .col-sm-offset-1 {margin-left: 10%}
+#createDashboard .col-sm-11 {width: 90%}
+
+.valueSelectionWrap {
+  display: none !important;
+}
